@@ -11,7 +11,7 @@ CREATE TABLE artiste (
 	dateMort date,
 	CONSTRAINT uniqueNomPreNai UNIQUE (nomA, prenom, dateNais),
 	CONSTRAINT dateNaisMort CHECK (dateNais < dateMort)
-)
+);
 
 
 CREATE TABLE groupe (
@@ -20,7 +20,7 @@ CREATE TABLE groupe (
 	dateCrea date NOT NULL,
 	nationG varchar(50),
 	genre varchar(50) NOT NULL
-)
+);
 
 
 CREATE TABLE membre (
@@ -35,8 +35,8 @@ CREATE TABLE membre (
 	ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (idG) REFERENCES groupe(idG)
 	ON DELETE CASCADE ON UPDATE CASCADE
-)
+);
 
 
-;
+
 /*---------------------------------------------*/
