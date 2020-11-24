@@ -50,19 +50,19 @@ CREATE TABLE membre (
 CREATE TABLE morceau (
 	idMo serial PRIMARY KEY,
 	titreM varchar(50) NOT NULL,
-	duree time NOT NULL,
-	paroles text NOT NULL,
-	audio text NOT NULL,
-	idG int REFERENCES groupe ON DELETE CASCADE ON UPDATE CASCADE
+	duree interval NOT NULL,
+	paroles text,
+	audio varchar(200),
+	idG int NOT NULL REFERENCES groupe ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE album (
 	idAl serial PRIMARY KEY,
 	titreA varchar(50) NOT NULL,
 	dateParu date NOT NULL,
-	couv text NOT NULL,
-	descA text NOT NULL,
-	idG int REFERENCES groupe ON DELETE CASCADE ON UPDATE CASCADE
+	couv varchar(200),
+	descA text,
+	idG int NOT NULL REFERENCES groupe ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE utilisateur (
