@@ -38,5 +38,17 @@ CREATE TABLE membre (
 );
 
 
+CREATE TABLE morceau (
+	idMo int PRIMARY KEY,
+	titreM varchar(50) NOT NULL,
+	duree time NOT NULL,
+	paroles text NOT NULL,
+	audio text UNIQUE NOT NULL,
+	idG int NOT NULL,
+	FOREIGN KEY (idG) REFERENCES groupe(idG)
+	ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
 
 /*---------------------------------------------*/
