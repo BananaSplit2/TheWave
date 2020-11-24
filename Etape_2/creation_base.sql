@@ -3,7 +3,7 @@
 
 
 CREATE TABLE artiste (
-	idA int PRIMARY KEY,
+	idA serial PRIMARY KEY,
 	nomA varchar(50) NOT NULL,
 	prenom varchar(50) NOT NULL,
 	nationA varchar(50),
@@ -15,7 +15,7 @@ CREATE TABLE artiste (
 
 
 CREATE TABLE groupe (
-	idG int PRIMARY KEY,
+	idG serial PRIMARY KEY,
 	nomG varchar(50) NOT NULL,
 	dateCrea date NOT NULL,
 	nationG varchar(50),
@@ -24,29 +24,23 @@ CREATE TABLE groupe (
 
 
 CREATE TABLE membre (
-	idMe int PRIMARY KEY,
+	idMe serial PRIMARY KEY,
 	role varchar(50) NOT NULL,
 	dateDeb date NOT NULL,
 	dateFin date,
-	idA int NOT NULL,
-	idG int NOT NULL,
-	CONSTRAINT dateDebFin CHECK (dateDeb < dateFin),
-	FOREIGN KEY (idA) REFERENCES artiste(idA)
-	ON DELETE CASCADE ON UPDATE CASCADE,
-	FOREIGN KEY (idG) REFERENCES groupe(idG)
-	ON DELETE CASCADE ON UPDATE CASCADE
+	idA int NOT NULL REFERENCES artiste ON DELETE CASCADE ON UPDATE CASCADE,
+	idG int NOT NULL REFERENCES groupe ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT dateDebFin CHECK (dateDeb < dateFin)
 );
 
 
 CREATE TABLE morceau (
-	idMo int PRIMARY KEY,
+	idMo serial PRIMARY KEY,
 	titreM varchar(50) NOT NULL,
 	duree time NOT NULL,
 	paroles text NOT NULL,
-	audio text UNIQUE NOT NULL,
-	idG int NOT NULL,
-	FOREIGN KEY (idG) REFERENCES groupe(idG)
-	ON DELETE CASCADE ON UPDATE CASCADE
+	audio text NOT NULL,
+	idG int NOT NULL REFERENCES groupe ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
