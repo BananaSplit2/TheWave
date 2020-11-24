@@ -29,7 +29,6 @@ CREATE TABLE artiste (
 	CONSTRAINT dateNaisMort CHECK (dateNais < dateMort)
 );
 
-
 CREATE TABLE groupe (
 	idG serial PRIMARY KEY,
 	nomG varchar(50) NOT NULL,
@@ -38,10 +37,9 @@ CREATE TABLE groupe (
 	genre varchar(50) NOT NULL
 );
 
-
 CREATE TABLE membre (
 	idMe serial PRIMARY KEY,
-	role varchar(50) NOT NULL,
+	roleM varchar(50) NOT NULL,
 	dateDeb date NOT NULL,
 	dateFin date,
 	idA int NOT NULL REFERENCES artiste ON DELETE CASCADE ON UPDATE CASCADE,
@@ -49,16 +47,14 @@ CREATE TABLE membre (
 	CONSTRAINT dateDebFin CHECK (dateDeb < dateFin)
 );
 
-
 CREATE TABLE morceau (
 	idMo serial PRIMARY KEY,
 	titreM varchar(50) NOT NULL,
 	duree time NOT NULL,
 	paroles text NOT NULL,
 	audio text NOT NULL,
-	idG int NOT NULL REFERENCES groupe ON DELETE CASCADE ON UPDATE CASCADE
+	idG int REFERENCES groupe ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 
 CREATE TABLE album (
 	idAl serial PRIMARY KEY,
@@ -66,9 +62,8 @@ CREATE TABLE album (
 	dateParu date NOT NULL,
 	couv text NOT NULL,
 	descA text NOT NULL,
-	idG int NOT NULL REFERENCES groupe ON DELETE CASCADE ON UPDATE CASCADE
+	idG int REFERENCES groupe ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 
 CREATE TABLE utilisateur (
 	pseudo varchar(50) PRIMARY KEY,
@@ -77,5 +72,53 @@ CREATE TABLE utilisateur (
 	mdp varchar(50) NOT NULL
 );
 
+CREATE TABLE playlist (
+	idP serial PRIMARY KEY,
+	titre varchar(50) NOT NULL,
+	descP text,
+	privee boolean NOT NULL,
+	pseudo varchar(50) NOT NULL REFERENCES utilisateur ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE participe (
+	idA int REFERENCES artiste ON DELETE CASCADE ON UPDATE CASCADE,
+	idMo int REFERENCES morceau ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT participe_PK PRIMARY KEY (idA, idMo)
+);
+
+CREATE TABLE albumContient (
+	idAl int REFERENCES album ON DELETE CASCADE ON UPDATE CASCADE,
+	idMo int REFERENCES morceau ON DELETE CASCADE ON UPDATE CASCADE,
+	num int,
+	CONSTRAINT albumContient_PK PRIMARY KEY (idAl, idMo),
+	CONSTRAINT numerotation_album UNIQUE (idAl, num)
+);
+
+CREATE TABLE playlistContient (
+	idP int REFERENCES playlist ON DELETE CASCADE ON UPDATE CASCADE,
+	idMo int REFERENCES morceau ON DELETE CASCADE ON UPDATE CASCADE,
+	num int,
+	CONSTRAINT playlistContient_PK PRIMARY KEY (idP, idMo),
+	CONSTRAINT numerotation_playlist UNIQUE (idP, num)
+);
+
+CREATE TABLE suitGroupe (
+	pseudo varchar(50) REFERENCES utilisateur ON DELETE CASCADE ON UPDATE CASCADE,
+	idG int REFERENCES groupe ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT suitGroupe_PK PRIMARY KEY (pseudo, idG)
+);
+
+CREATE TABLE suitUtilisateur (
+	suit varchar(50) REFERENCES utilisateur ON DELETE CASCADE ON UPDATE CASCADE,
+	suivi varchar(50) REFERENCES utilisateur ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT suitUtilisateur_PK PRIMARY KEY (suit, suivi)
+);
+
+CREATE TABLE historique (
+	pseudo varchar(50) REFERENCES utilisateur ON DELETE CASCADE ON UPDATE CASCADE,
+	idMo int REFERENCES morceau ON DELETE CASCADE ON UPDATE CASCADE,
+	dateHeure timestamp,
+	CONSTRAINT historique_PK PRIMARY KEY (pseudo, idMo, dateHeure)
+);
 
 /*---------------------------------------------*/
