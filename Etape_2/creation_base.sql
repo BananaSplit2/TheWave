@@ -70,4 +70,12 @@ CREATE TABLE album (
 );
 
 
+CREATE TABLE utilisateur (
+	pseudo varchar(50) PRIMARY KEY,
+	email varchar(50) UNIQUE NOT NULL,
+	dateInsc date NOT NULL,
+	mdp varchar(50) NOT NULL
+);
+
+
 /*---------------------------------------------*/
