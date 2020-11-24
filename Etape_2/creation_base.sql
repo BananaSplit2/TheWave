@@ -44,5 +44,14 @@ CREATE TABLE morceau (
 );
 
 
+CREATE TABLE album (
+	idAl serial PRIMARY KEY,
+	titreA varchar(50) NOT NULL,
+	dateParu date NOT NULL,
+	couv text NOT NULL,
+	descA text NOT NULL,
+	idG int NOT NULL REFERENCES groupe ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 
 /*---------------------------------------------*/
