@@ -1,0 +1,34 @@
+artiste(*idA, nomA, prenom, dateNais, dateMort)
+membre(*idMe, role, dateDeb, dateFin, #idA, #idG)
+groupe(*idG, nomG, dateCrea, nation, genre)
+morceau(*idMo, titreM, duree, paroles, audio, #idG)
+album(*idAl, titreA, dateParu, couv, descA, #idG)
+utilisateur(*pseudo, email, dateInsc, mdp)
+playlist(*idP, titre, descP, privee, #pseudo)
+
+participe(*#idA, *#idMo)
+albumContient(*#idAl, *#idMo, num)
+playlistContient(*#idP, *#idMo, num)
+suitGroupe(*#pseudo, *#idG)
+suitUtilisateur(*#suit, *#suivi)
+historique(*#pseudo, *#idMo, *dateHeure)
+
+FK :
+
+membre.idA REFERENCES artiste.idA
+membre.idG REFERENCES groupe.idG
+morceau.idG REFERENCES groupe.idG
+album.idG REFERENCES groupe.idG
+playlist.pseudo REFERENCES utilisateur.pseudo
+participe.idA REFERENCES artiste.idA
+participe.idMo REFERENCES morceau.idMo
+albumContient.idAl REFERENCES album.idAl
+albumContient.idMo REFERENCES morceau.idMo
+playlistContient.idP REFERENCES playlist.idP
+playlistContient.idMo REFERENCES morceau.idMo
+suitGroupe.pseudo REFERENCES utilisateur.pseudo
+suitGroupe.idG REFERENCES groupe.idG
+suitUtilisateur.suit REFERENCES utilisateur.pseudo
+suitUtilisateur.suivi REFERENCES utilisateur.pseudo
+historique.pseudo REFERENCES utilisateur.pseudo
+historique.idMo REFERENCES morceau.idMo
