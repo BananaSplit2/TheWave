@@ -22,7 +22,7 @@ CREATE TABLE artiste (
 	idA serial PRIMARY KEY,
 	nomA varchar(50) NOT NULL,
 	prenom varchar(50) NOT NULL,
-	nationA varchar(50),
+	nationA varchar(50) NOT NULL,
 	dateNais date NOT NULL,
 	dateMort date,
 	CONSTRAINT uniqueNomPreNai UNIQUE (nomA, prenom, dateNais),
