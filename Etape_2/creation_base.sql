@@ -22,10 +22,10 @@ CREATE TABLE artiste (
 	idA serial PRIMARY KEY,
 	nomA varchar(50) NOT NULL,
 	prenom varchar(50) NOT NULL,
-	nationA varchar(50) NOT NULL,
-	dateNais date NOT NULL,
+	nationA varchar(50),
+	dateNais date,
 	dateMort date,
-	CONSTRAINT uniqueNomPreNai UNIQUE (nomA, prenom, dateNais),
+	CONSTRAINT uniqueNomPre UNIQUE (nomA, prenom),
 	CONSTRAINT dateNaisMort CHECK (dateNais < dateMort)
 );
 
@@ -134,6 +134,7 @@ INSERT INTO utilisateur VALUES ('CpasGrave', 'david.goodenough@mail.fr', '2020-1
 INSERT INTO groupe VALUES (1, 'The Beatles', '1960-08-15', 'britannique', 'pop rock');
 INSERT INTO groupe VALUES (2, 'Santa Claws', '1982-12-25', 'americain', 'pop');
 INSERT INTO groupe VALUES (3, 'Nightwish', '1996-12-01', 'finlandais', 'heavy metal');
+INSERT INTO groupe VALUES (4, 'Within Temptation', '1996-01-01', 'néerlandais', 'metal symphonique');
 
 /* artistes */
 INSERT INTO artiste VALUES (1, 'Lennon', 'John', 'britannique', '1940-10-09', '1980-12-08');
@@ -154,6 +155,24 @@ INSERT INTO artiste VALUES (14, 'Turunen', 'Tarja', 'finlandaise', '1977-08-17')
 INSERT INTO artiste VALUES (15, 'Nevalainen', 'Jukka', 'finlandais', '1978-04-21');
 INSERT INTO artiste VALUES (16, 'Vänskä', 'Sami', 'finlandais', '1976-09-26');
 INSERT INTO artiste VALUES (17, 'Olzon', 'Anette', 'suédoise', '1971-06-21');
+
+INSERT INTO artiste VALUES (18, 'Den Adel', 'Sharon', 'néerlandaise', '1974-07-12');
+INSERT INTO artiste VALUES (19, 'Westerholt', 'Robert', 'néerlandais', '1975-01-02');
+INSERT INTO artiste VALUES (20, 'Van Veen', 'Jeroen', 'néerlandais', '1974-10-26');
+INSERT INTO artiste VALUES (21, 'Jolie', 'Ruud', 'néerlandais', '1976-04-19');
+INSERT INTO artiste VALUES (22, 'Spierenburg', 'Martijn', 'néerlandais', '1975-01-30');
+INSERT INTO artiste VALUES (23, 'Coolen', 'Mike', NULL, NULL);
+INSERT INTO artiste VALUES (24, 'Helleblad', 'Stefan', NULL, NULL;
+INSERT INTO artiste VALUES (25, 'Papenhove', 'Michiel', NULL, NULL);
+INSERT INTO artiste VALUES (26, 'Westerholt', 'Martijn', 'néerlandais', '1979-03-30');
+INSERT INTO artiste VALUES (27, 'Leeflang', 'Dennis', 'néerlandais', '1979-05-22');
+INSERT INTO artiste VALUES (28, 'Willemse', 'Richard', NULL, NULL);
+INSERT INTO artiste VALUES (29, 'De Graaf', 'Ivar', 'néerlandais', '1973-08-20');
+INSERT INTO artiste VALUES (30, 'Von Pyreen', 'Marius', NULL, NULL);
+INSERT INTO artiste VALUES (31, 'Palma', 'Ciro', NULL, NULL);
+INSERT INTO artiste VALUES (32, 'Bakker', 'Jelle', NULL, NULL);
+INSERT INTO artiste VALUES (33, 'Van Haestregt', 'Stephen', 'néerlandais', '1972-09-12');
+INSERT INTO artiste VALUES (34, 'Hellenberg', 'Nicka', NULL, NULL);
 
 /* membres */
 INSERT INTO membre VALUES (1, 'guitariste', '1960-08-15', '1969-09-20', 1, 1);
@@ -182,6 +201,26 @@ INSERT INTO membre VALUES (21, 'chanteuse', '1997-12-01', '2005-10-22', 14, 3);
 INSERT INTO membre VALUES (22, 'batteur', '1997-01-01', '2019-07-01', 15, 3);
 INSERT INTO membre VALUES (23, 'bassiste', '1998-01-01', '2001-11-01', 16, 3);
 INSERT INTO membre VALUES (24, 'chanteuse', '2007-01-01', '2012-10-01', 17, 3);
+
+INSERT INTO membre VALUES (25, 'chanteuse', '1996-01-01', NULL, 18, 4);
+INSERT INTO membre VALUES (26, 'guitariste', '1996-01-01', NULL, 19, 4);
+INSERT INTO membre VALUES (27, 'chanteur', '1996-01-01', NULL, 19, 4);
+INSERT INTO membre VALUES (28, 'bassiste', '1996-01-01', NULL, 20, 4);
+INSERT INTO membre VALUES (29, 'guitariste', '2001-06-01', NULL, 21, 4);
+INSERT INTO membre VALUES (29, 'claviériste', '2001-06-01', NULL, 22, 4);
+INSERT INTO membre VALUES (30, 'batteur', '2011-02-01', NULL, 23, 4);
+INSERT INTO membre VALUES (31, 'guitariste', '2011-06-01', NULL, 24, 4);
+INSERT INTO membre VALUES (32, 'guitariste', '1996-01-01', '2001-05-01', 25, 4);
+INSERT INTO membre VALUES (33, 'claviériste', '1996-01-01', '2001-05-01', 26, 4);
+INSERT INTO membre VALUES (34, 'batteur', '1996-01-01', '1996-06-01', 27, 4);
+INSERT INTO membre VALUES (35, 'batteur', '1996-06-01', '1996-10-01', 28, 4);
+INSERT INTO membre VALUES (36, 'batteur', '1996-10-01', '1998-03-01', 29, 4);
+INSERT INTO membre VALUES (37, 'batteur', '1999-02-01', '2001-06-01', 29, 4);
+INSERT INTO membre VALUES (38, 'batteur', '1998-03-01', '1998-06-01', 30, 4);
+INSERT INTO membre VALUES (39, 'batteur', '1998-06-01', '1999-02-01', 31, 4);
+INSERT INTO membre VALUES (40, 'batteur', '1998-06-01', '1999-02-01', 32, 4);
+INSERT INTO membre VALUES (41, 'batteur', '2001-06-01', '2010-01-01', 33, 4);
+INSERT INTO membre VALUES (42, 'batteur', '2010-01-01', '2011-02-01', 34, 4);
 
 /* morceaux */
 INSERT INTO morceau VALUES (1, 'We wish you a merry christmas', '00:05:31', 'www.wish-you.com/merry_christmas/lyrics', 'www.wish-you.com/merry_christmas/audio', 2);
