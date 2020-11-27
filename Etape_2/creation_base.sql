@@ -98,8 +98,7 @@ CREATE TABLE playlistContient (
 	idP int REFERENCES playlist ON DELETE CASCADE ON UPDATE CASCADE,
 	idMo int REFERENCES morceau ON DELETE CASCADE ON UPDATE CASCADE,
 	num int,
-	CONSTRAINT playlistContient_PK PRIMARY KEY (idP, idMo),
-	CONSTRAINT numerotation_playlist UNIQUE (idP, num)
+	CONSTRAINT playlistContient_PK PRIMARY KEY (idP, num)
 );
 
 CREATE TABLE suitGroupe (
@@ -162,7 +161,7 @@ INSERT INTO artiste VALUES (20, 'Van Veen', 'Jeroen', 'néerlandais', '1974-10-2
 INSERT INTO artiste VALUES (21, 'Jolie', 'Ruud', 'néerlandais', '1976-04-19');
 INSERT INTO artiste VALUES (22, 'Spierenburg', 'Martijn', 'néerlandais', '1975-01-30');
 INSERT INTO artiste VALUES (23, 'Coolen', 'Mike', NULL, NULL);
-INSERT INTO artiste VALUES (24, 'Helleblad', 'Stefan', NULL, NULL;
+INSERT INTO artiste VALUES (24, 'Helleblad', 'Stefan', NULL, NULL);
 INSERT INTO artiste VALUES (25, 'Papenhove', 'Michiel', NULL, NULL);
 INSERT INTO artiste VALUES (26, 'Westerholt', 'Martijn', 'néerlandais', '1979-03-30');
 INSERT INTO artiste VALUES (27, 'Leeflang', 'Dennis', 'néerlandais', '1979-05-22');
@@ -173,6 +172,10 @@ INSERT INTO artiste VALUES (31, 'Palma', 'Ciro', NULL, NULL);
 INSERT INTO artiste VALUES (32, 'Bakker', 'Jelle', NULL, NULL);
 INSERT INTO artiste VALUES (33, 'Van Haestregt', 'Stephen', 'néerlandais', '1972-09-12');
 INSERT INTO artiste VALUES (34, 'Hellenberg', 'Nicka', NULL, NULL);
+
+INSERT INTO artiste VALUES (35, 'Jones', 'Howard', 'américain', '1970-07-20');
+INSERT INTO artiste VALUES (36, 'Joiner', 'Alvin', 'américain', '1974-09-18');
+INSERT INTO artiste VALUES (37, 'Pirner', 'David', 'américain', '1964-04-16');
 
 /* membres */
 INSERT INTO membre VALUES (1, 'guitariste', '1960-08-15', '1969-09-20', 1, 1);
@@ -222,6 +225,8 @@ INSERT INTO membre VALUES (40, 'batteur', '1998-06-01', '1999-02-01', 32, 4);
 INSERT INTO membre VALUES (41, 'batteur', '2001-06-01', '2010-01-01', 33, 4);
 INSERT INTO membre VALUES (42, 'batteur', '2010-01-01', '2011-02-01', 34, 4);
 
+ALTER SEQUENCE membre_idme_seq RESTART WITH 43;
+
 /* morceaux */
 INSERT INTO morceau VALUES (1, 'We wish you a merry christmas', '00:05:31', 'www.wish-you.com/merry_christmas/lyrics', 'www.wish-you.com/merry_christmas/audio', 2);
 INSERT INTO morceau VALUES (2, 'Ho ho ho', '00:02:54', 'www.wish-you.com/ho_ho_ho/lyrics', 'www.wish-you.com/ho_ho_ho/audio', 2);
@@ -232,7 +237,7 @@ INSERT INTO morceau VALUES (6, 'Yellow submarine', '00:02:37', NULL, NULL, 1);
 INSERT INTO morceau VALUES (7, 'Yesterday', '00:02:05', NULL, 'https://www.youtube.com/watch?v=jo505ZyaCbA', 1);
 INSERT INTO morceau VALUES (8, 'Hello, goodbye', '00:03:07', NULL, 'https://www.youtube.com/watch?v=BD75RTV9P5w', 1);
 
-INSERT INTO morceau VALUES (9, 'The Poet and the Pendulum', '00:13:53', NULL, NULL, 3);
+INSERT INTO morceau VALUES (9, 'The Poet and the Pendulum', '00:13:53', 'the_poet_and_the_pendulum.txt', 'the_poet_and_the_pendulum.mp3', 3);
 INSERT INTO morceau VALUES (10, 'Bye Bye Beautiful', '00:04:15', NULL, NULL, 3);
 INSERT INTO morceau VALUES (11, 'Amaranth', '00:03:51', NULL, NULL, 3);
 INSERT INTO morceau VALUES (12, 'Cadence of Her Last Breath', '00:04:15', NULL, NULL, 3);
@@ -247,8 +252,20 @@ INSERT INTO morceau VALUES (20, '7 Days to the Wolves', '00:07:03', NULL, NULL, 
 INSERT INTO morceau VALUES (21, 'Meadows of Heaven', '00:07:10', NULL, NULL, 3);
 INSERT INTO morceau VALUES (22, 'Escapist', '00:04:57', NULL, NULL, 3);
 
+INSERT INTO morceau VALUES (23, 'Let Us Burn', '00:05:31', NULL, NULL, 3);
+INSERT INTO morceau VALUES (24, 'Dangerous', '00:04:53', NULL, NULL, 3);
+INSERT INTO morceau VALUES (25, 'And We Run', '00:03:50', NULL, NULL, 3);
+INSERT INTO morceau VALUES (26, 'Paradise (What About Us?)', '00:05:20', NULL, NULL, 3);
+INSERT INTO morceau VALUES (27, 'Edge of the World', '00:04:55', NULL, NULL, 3);
+INSERT INTO morceau VALUES (28, 'Silver Moonlight', '00:05:17', NULL, NULL, 3);
+INSERT INTO morceau VALUES (29, 'Covered by Roses', '00:04:48', NULL, NULL, 3);
+INSERT INTO morceau VALUES (30, 'Dog Days', '00:06:12', NULL, NULL, 3);
+INSERT INTO morceau VALUES (31, 'Tell Me Why', '00:06:12', NULL, NULL, 3);
+INSERT INTO morceau VALUES (32, 'Whole World Is Watching', '00:04:03', NULL, NULL, 3);
+
 /* albums */
 INSERT INTO album VALUES (1, 'Dark Passion Play', '2007-09-26', NULL, 'Dark Passion Play est le sixième album du groupe Nightwish, sorti le 28 septembre 2007 en Europe, excepté en France où il est paru le premier octobre. C''est le premier album avec la chanteuse Anette Olzon.', 3);
+INSERT INTO album VALUES (2, 'Hydra', '2014-07-22', NULL, 'Hydra est le sixième album studio du groupe néerlandais de metal symphonique Within Temptation, sorti le 22 janvier 2014 sur les labels Nuclear Blast, Dramatico, Bertelsmann et Roadrunner Records. ', 4);
 
 /* albumContient */
 
@@ -266,6 +283,17 @@ INSERT INTO albumContient VALUES (1, 19, 11);
 INSERT INTO albumContient VALUES (1, 20, 12);
 INSERT INTO albumContient VALUES (1, 21, 13);
 INSERT INTO albumContient VALUES (1, 22, 14);
+
+INSERT INTO albumContient VALUES (2, 23, 1);
+INSERT INTO albumContient VALUES (2, 24, 2);
+INSERT INTO albumContient VALUES (2, 25, 3);
+INSERT INTO albumContient VALUES (2, 26, 4);
+INSERT INTO albumContient VALUES (2, 27, 5);
+INSERT INTO albumContient VALUES (2, 28, 6);
+INSERT INTO albumContient VALUES (2, 29, 7);
+INSERT INTO albumContient VALUES (2, 30, 8);
+INSERT INTO albumContient VALUES (2, 31, 9);
+INSERT INTO albumContient VALUES (2, 32, 10);
 
 /* participations */
 INSERT INTO participe VALUES (5, 1);
@@ -359,3 +387,126 @@ INSERT INTO participe VALUES (8, 22);
 INSERT INTO participe VALUES (10, 22);
 INSERT INTO participe VALUES (9, 22);
 INSERT INTO participe VALUES (15, 22);
+
+INSERT INTO participe VALUES (18, 23);
+INSERT INTO participe VALUES (19, 23);
+INSERT INTO participe VALUES (21, 23);
+INSERT INTO participe VALUES (24, 23);
+INSERT INTO participe VALUES (22, 23);
+INSERT INTO participe VALUES (20, 23);
+INSERT INTO participe VALUES (23, 23);
+
+INSERT INTO participe VALUES (18, 24);
+INSERT INTO participe VALUES (19, 24);
+INSERT INTO participe VALUES (21, 24);
+INSERT INTO participe VALUES (24, 24);
+INSERT INTO participe VALUES (22, 24);
+INSERT INTO participe VALUES (20, 24);
+INSERT INTO participe VALUES (23, 24);
+INSERT INTO participe VALUES (35, 24);
+
+INSERT INTO participe VALUES (18, 25);
+INSERT INTO participe VALUES (19, 25);
+INSERT INTO participe VALUES (21, 25);
+INSERT INTO participe VALUES (24, 25);
+INSERT INTO participe VALUES (22, 25);
+INSERT INTO participe VALUES (20, 25);
+INSERT INTO participe VALUES (23, 25);
+INSERT INTO participe VALUES (36, 25);
+
+INSERT INTO participe VALUES (18, 26);
+INSERT INTO participe VALUES (19, 26);
+INSERT INTO participe VALUES (21, 26);
+INSERT INTO participe VALUES (24, 26);
+INSERT INTO participe VALUES (22, 26);
+INSERT INTO participe VALUES (20, 26);
+INSERT INTO participe VALUES (23, 26);
+INSERT INTO participe VALUES (14, 26);
+
+INSERT INTO participe VALUES (18, 27);
+INSERT INTO participe VALUES (19, 27);
+INSERT INTO participe VALUES (21, 27);
+INSERT INTO participe VALUES (24, 27);
+INSERT INTO participe VALUES (22, 27);
+INSERT INTO participe VALUES (20, 27);
+INSERT INTO participe VALUES (23, 27);
+
+INSERT INTO participe VALUES (18, 28);
+INSERT INTO participe VALUES (19, 28);
+INSERT INTO participe VALUES (21, 28);
+INSERT INTO participe VALUES (24, 28);
+INSERT INTO participe VALUES (22, 28);
+INSERT INTO participe VALUES (20, 28);
+INSERT INTO participe VALUES (23, 28);
+
+INSERT INTO participe VALUES (18, 29);
+INSERT INTO participe VALUES (19, 29);
+INSERT INTO participe VALUES (21, 29);
+INSERT INTO participe VALUES (24, 29);
+INSERT INTO participe VALUES (22, 29);
+INSERT INTO participe VALUES (20, 29);
+INSERT INTO participe VALUES (23, 29);
+
+INSERT INTO participe VALUES (18, 30);
+INSERT INTO participe VALUES (19, 30);
+INSERT INTO participe VALUES (21, 30);
+INSERT INTO participe VALUES (24, 30);
+INSERT INTO participe VALUES (22, 30);
+INSERT INTO participe VALUES (20, 30);
+INSERT INTO participe VALUES (23, 30);
+
+INSERT INTO participe VALUES (18, 31);
+INSERT INTO participe VALUES (19, 31);
+INSERT INTO participe VALUES (21, 31);
+INSERT INTO participe VALUES (24, 31);
+INSERT INTO participe VALUES (22, 31);
+INSERT INTO participe VALUES (20, 31);
+INSERT INTO participe VALUES (23, 31);
+
+INSERT INTO participe VALUES (18, 32);
+INSERT INTO participe VALUES (19, 32);
+INSERT INTO participe VALUES (21, 32);
+INSERT INTO participe VALUES (24, 32);
+INSERT INTO participe VALUES (22, 32);
+INSERT INTO participe VALUES (20, 32);
+INSERT INTO participe VALUES (23, 32);
+INSERT INTO participe VALUES (37, 32);
+
+/* playlist */
+
+INSERT INTO playlist VALUES (1, 'du bon son métal', 'les morceaux que j''adore', false, 'JeanKevin69');
+INSERT INTO playlist VALUES (2, 'ma playlist perso', NULL, true, 'CpasGrave');
+
+/* playlistContient */
+
+INSERT INTO playlistContient VALUES (1, 16, 1);
+INSERT INTO playlistContient VALUES (1, 9, 2);
+INSERT INTO playlistContient VALUES (1, 23, 3);
+INSERT INTO playlistContient VALUES (1, 32, 4);
+INSERT INTO playlistContient VALUES (1, 28, 5);
+INSERT INTO playlistContient VALUES (1, 11, 6);
+INSERT INTO playlistContient VALUES (1, 22, 7);
+INSERT INTO playlistContient VALUES (1, 16, 8);
+
+INSERT INTO playlistContient VALUES (2, 1, 1);
+INSERT INTO playlistContient VALUES (2, 6, 2);
+INSERT INTO playlistContient VALUES (2, 28, 3);
+INSERT INTO playlistContient VALUES (2, 7, 4);
+INSERT INTO playlistContient VALUES (2, 2, 5);
+
+/* suitGroupe */
+
+INSERT INTO suitGroupe('JeanKevin69', 3);
+INSERT INTO suitGroupe('JeanKevin69', 4);
+INSERT INTO suitGroupe('Galineras', 2);
+INSERT INTO suitGroupe('CpasGrave', 1);
+
+/* suitUtilisateur */
+INSERT INTO suitGroupe('BananaSplit', 'Galineras');
+INSERT INTO suitGroupe('CpasGrave', 'Galineras');
+INSERT INTO suitGroupe('Galineras', 'BananaSplit');
+
+/* historique */
+
+INSERT INTO historique('JeanKevin69', 9, '')
+
