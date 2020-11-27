@@ -134,6 +134,7 @@ INSERT INTO groupe VALUES (1, 'The Beatles', '1960-08-15', 'britannique', 'pop r
 INSERT INTO groupe VALUES (2, 'Santa Claws', '1982-12-25', 'americain', 'pop');
 INSERT INTO groupe VALUES (3, 'Nightwish', '1996-12-01', 'finlandais', 'heavy metal');
 INSERT INTO groupe VALUES (4, 'Within Temptation', '1996-01-01', 'néerlandais', 'metal symphonique');
+ALTER SEQUENCE groupe_idme_seq RESTART WITH 5;
 
 /* artistes */
 INSERT INTO artiste VALUES (1, 'Lennon', 'John', 'britannique', '1940-10-09', '1980-12-08');
@@ -176,6 +177,7 @@ INSERT INTO artiste VALUES (34, 'Hellenberg', 'Nicka', NULL, NULL);
 INSERT INTO artiste VALUES (35, 'Jones', 'Howard', 'américain', '1970-07-20');
 INSERT INTO artiste VALUES (36, 'Joiner', 'Alvin', 'américain', '1974-09-18');
 INSERT INTO artiste VALUES (37, 'Pirner', 'David', 'américain', '1964-04-16');
+ALTER SEQUENCE artiste RESTART WITH 38;
 
 /* membres */
 INSERT INTO membre VALUES (1, 'guitariste', '1960-08-15', '1969-09-20', 1, 1);
@@ -263,9 +265,13 @@ INSERT INTO morceau VALUES (30, 'Dog Days', '00:06:12', NULL, NULL, 3);
 INSERT INTO morceau VALUES (31, 'Tell Me Why', '00:06:12', NULL, NULL, 3);
 INSERT INTO morceau VALUES (32, 'Whole World Is Watching', '00:04:03', NULL, NULL, 3);
 
+ALTER SEQUENCE morceau_idme_seq RESTART WITH 33;
+
 /* albums */
 INSERT INTO album VALUES (1, 'Dark Passion Play', '2007-09-26', NULL, 'Dark Passion Play est le sixième album du groupe Nightwish, sorti le 28 septembre 2007 en Europe, excepté en France où il est paru le premier octobre. C''est le premier album avec la chanteuse Anette Olzon.', 3);
 INSERT INTO album VALUES (2, 'Hydra', '2014-07-22', NULL, 'Hydra est le sixième album studio du groupe néerlandais de metal symphonique Within Temptation, sorti le 22 janvier 2014 sur les labels Nuclear Blast, Dramatico, Bertelsmann et Roadrunner Records. ', 4);
+
+ALTER SEQUENCE album_idme_seq RESTART WITH 3;
 
 /* albumContient */
 
