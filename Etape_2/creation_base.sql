@@ -509,5 +509,10 @@ INSERT INTO suitGroupe('Galineras', 'BananaSplit');
 
 /* historique */
 
-INSERT INTO historique('JeanKevin69', 9, '')
-
+INSERT INTO historique('JeanKevin69', 9, '2020-11-27 19:16:06');
+INSERT INTO historique('JeanKevin69', 17, '2020-11-27 19:22:37');
+INSERT INTO historique('JeanKevin69', 22, '2020-11-27 19:28:54');
+INSERT INTO historique('Cpasgrave', 6, '2020-08-03 08:22:17');
+INSERT INTO historique('Cpasgrave', 7, '2020-08-03 08:25:01');
+INSERT INTO historique('Cpasgrave', 8, '2020-08-03 08:27:09');
+INSERT INTO historique('Galineras', 3, '2020-11-27 13:59:59');
