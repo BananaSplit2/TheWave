@@ -110,7 +110,7 @@ CREATE TABLE suitGroupe (
 CREATE TABLE suitUtilisateur (
 	suit varchar(50) REFERENCES utilisateur ON DELETE CASCADE ON UPDATE CASCADE,
 	suivi varchar(50) REFERENCES utilisateur ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT suitUtilisateur_PK PRIMARY KEY (suit, suivi);
+	CONSTRAINT suitUtilisateur_PK PRIMARY KEY (suit, suivi),
 	CONSTRAINT noFollowSame CHECK (suit != suivi)
 );
 
@@ -135,7 +135,7 @@ INSERT INTO groupe VALUES (1, 'The Beatles', '1960-08-15', 'britannique', 'pop r
 INSERT INTO groupe VALUES (2, 'Santa Claws', '1982-12-25', 'americain', 'pop');
 INSERT INTO groupe VALUES (3, 'Nightwish', '1996-12-01', 'finlandais', 'heavy metal');
 INSERT INTO groupe VALUES (4, 'Within Temptation', '1996-01-01', 'néerlandais', 'metal symphonique');
-ALTER SEQUENCE groupe_idme_seq RESTART WITH 5;
+ALTER SEQUENCE groupe_idg_seq RESTART WITH 5;
 
 /* artistes */
 INSERT INTO artiste VALUES (1, 'Lennon', 'John', 'britannique', '1940-10-09', '1980-12-08');
@@ -178,7 +178,7 @@ INSERT INTO artiste VALUES (34, 'Hellenberg', 'Nicka', NULL, NULL);
 INSERT INTO artiste VALUES (35, 'Jones', 'Howard', 'américain', '1970-07-20');
 INSERT INTO artiste VALUES (36, 'Joiner', 'Alvin', 'américain', '1974-09-18');
 INSERT INTO artiste VALUES (37, 'Pirner', 'David', 'américain', '1964-04-16');
-ALTER SEQUENCE artiste RESTART WITH 38;
+ALTER SEQUENCE artiste_ida_seq RESTART WITH 38;
 
 /* membres */
 INSERT INTO membre VALUES (1, 'guitariste', '1960-08-15', '1969-09-20', 1, 1);
@@ -213,7 +213,7 @@ INSERT INTO membre VALUES (26, 'guitariste', '1996-01-01', NULL, 19, 4);
 INSERT INTO membre VALUES (27, 'chanteur', '1996-01-01', NULL, 19, 4);
 INSERT INTO membre VALUES (28, 'bassiste', '1996-01-01', NULL, 20, 4);
 INSERT INTO membre VALUES (29, 'guitariste', '2001-06-01', NULL, 21, 4);
-INSERT INTO membre VALUES (29, 'claviériste', '2001-06-01', NULL, 22, 4);
+INSERT INTO membre VALUES (43, 'claviériste', '2001-06-01', NULL, 22, 4);
 INSERT INTO membre VALUES (30, 'batteur', '2011-02-01', NULL, 23, 4);
 INSERT INTO membre VALUES (31, 'guitariste', '2011-06-01', NULL, 24, 4);
 INSERT INTO membre VALUES (32, 'guitariste', '1996-01-01', '2001-05-01', 25, 4);
@@ -266,13 +266,13 @@ INSERT INTO morceau VALUES (30, 'Dog Days', '00:06:12', NULL, NULL, 3);
 INSERT INTO morceau VALUES (31, 'Tell Me Why', '00:06:12', NULL, NULL, 3);
 INSERT INTO morceau VALUES (32, 'Whole World Is Watching', '00:04:03', NULL, NULL, 3);
 
-ALTER SEQUENCE morceau_idme_seq RESTART WITH 33;
+ALTER SEQUENCE morceau_idmo_seq RESTART WITH 33;
 
 /* albums */
 INSERT INTO album VALUES (1, 'Dark Passion Play', '2007-09-26', NULL, 'Dark Passion Play est le sixième album du groupe Nightwish, sorti le 28 septembre 2007 en Europe, excepté en France où il est paru le premier octobre. C''est le premier album avec la chanteuse Anette Olzon.', 3);
 INSERT INTO album VALUES (2, 'Hydra', '2014-07-22', NULL, 'Hydra est le sixième album studio du groupe néerlandais de metal symphonique Within Temptation, sorti le 22 janvier 2014 sur les labels Nuclear Blast, Dramatico, Bertelsmann et Roadrunner Records. ', 4);
 
-ALTER SEQUENCE album_idme_seq RESTART WITH 3;
+ALTER SEQUENCE album_idal_seq RESTART WITH 3;
 
 /* albumContient */
 
@@ -504,21 +504,21 @@ INSERT INTO playlistContient VALUES (2, 2, 5);
 /* suitGroupe */
 
 INSERT INTO suitGroupe VALUES ('JeanKevin69', 3);
-INSERT INTO suitGroupe VALUES (('JeanKevin69', 4);
-INSERT INTO suitGroupe VALUES (('Galineras', 2);
-INSERT INTO suitGroupe VALUES (('CpasGrave', 1);
+INSERT INTO suitGroupe VALUES ('JeanKevin69', 4);
+INSERT INTO suitGroupe VALUES ('Galineras', 2);
+INSERT INTO suitGroupe VALUES ('CpasGrave', 1);
 
 /* suitUtilisateur */
-INSERT INTO suitGroupe VALUES (('BananaSplit', 'Galineras');
-INSERT INTO suitGroupe VALUES (('CpasGrave', 'Galineras');
-INSERT INTO suitGroupe VALUES (('Galineras', 'BananaSplit');
+INSERT INTO suitUtilisateur VALUES ('BananaSplit', 'Galineras');
+INSERT INTO suitUtilisateur VALUES ('CpasGrave', 'Galineras');
+INSERT INTO suitUtilisateur VALUES ('Galineras', 'BananaSplit');
 
 /* historique */
 
-INSERT INTO historique VALUES (('JeanKevin69', 9, '2020-11-27 19:16:06');
-INSERT INTO historique VALUES (('JeanKevin69', 17, '2020-11-27 19:22:37');
-INSERT INTO historique VALUES (('JeanKevin69', 22, '2020-11-27 19:28:54');
-INSERT INTO historique VALUES (('Cpasgrave', 6, '2020-08-03 08:22:17');
-INSERT INTO historique VALUES (('Cpasgrave', 7, '2020-08-03 08:25:01');
-INSERT INTO historique VALUES (('Cpasgrave', 8, '2020-08-03 08:27:09');
-INSERT INTO historique VALUES (('Galineras', 3, '2020-11-27 13:59:59');
+INSERT INTO historique VALUES ('JeanKevin69', 9, '2020-11-27 19:16:06');
+INSERT INTO historique VALUES ('JeanKevin69', 17, '2020-11-27 19:22:37');
+INSERT INTO historique VALUES ('JeanKevin69', 22, '2020-11-27 19:28:54');
+INSERT INTO historique VALUES ('CpasGrave', 6, '2020-08-03 08:22:17');
+INSERT INTO historique VALUES ('CpasGrave', 7, '2020-08-03 08:25:01');
+INSERT INTO historique VALUES ('CpasGrave', 8, '2020-08-03 08:27:09');
+INSERT INTO historique VALUES ('Galineras', 3, '2020-11-27 13:59:59');
