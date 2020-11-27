@@ -110,7 +110,8 @@ CREATE TABLE suitGroupe (
 CREATE TABLE suitUtilisateur (
 	suit varchar(50) REFERENCES utilisateur ON DELETE CASCADE ON UPDATE CASCADE,
 	suivi varchar(50) REFERENCES utilisateur ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT suitUtilisateur_PK PRIMARY KEY (suit, suivi)
+	CONSTRAINT suitUtilisateur_PK PRIMARY KEY (suit, suivi);
+	CONSTRAINT noFollowSame CHECK (suit != suivi)
 );
 
 CREATE TABLE historique (
