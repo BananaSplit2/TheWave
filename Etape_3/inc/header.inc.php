@@ -25,7 +25,7 @@
                 <a class="nav-link" href="#">Recommendations</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Recheche</a>
+                <a class="nav-link" href="#">Recherche</a>
             </li>
         </ul>
 
