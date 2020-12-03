@@ -245,27 +245,27 @@ INSERT INTO morceau VALUES (20, '7 Days to the Wolves', '00:07:03', NULL, NULL, 
 INSERT INTO morceau VALUES (21, 'Meadows of Heaven', '00:07:10', NULL, NULL, 3);
 INSERT INTO morceau VALUES (22, 'Escapist', '00:04:57', NULL, NULL, 3);
 
-INSERT INTO morceau VALUES (23, 'Let Us Burn', '00:05:31', NULL, NULL, 3);
-INSERT INTO morceau VALUES (24, 'Dangerous', '00:04:53', NULL, NULL, 3);
-INSERT INTO morceau VALUES (25, 'And We Run', '00:03:50', NULL, NULL, 3);
-INSERT INTO morceau VALUES (26, 'Paradise (What About Us?)', '00:05:20', NULL, NULL, 3);
-INSERT INTO morceau VALUES (27, 'Edge of the World', '00:04:55', NULL, NULL, 3);
-INSERT INTO morceau VALUES (28, 'Silver Moonlight', '00:05:17', NULL, NULL, 3);
-INSERT INTO morceau VALUES (29, 'Covered by Roses', '00:04:48', NULL, NULL, 3);
-INSERT INTO morceau VALUES (30, 'Dog Days', '00:06:12', NULL, NULL, 3);
-INSERT INTO morceau VALUES (31, 'Tell Me Why', '00:06:12', NULL, NULL, 3);
-INSERT INTO morceau VALUES (32, 'Whole World Is Watching', '00:04:03', NULL, NULL, 3);
+INSERT INTO morceau VALUES (23, 'Let Us Burn', '00:05:31', NULL, NULL, 4);
+INSERT INTO morceau VALUES (24, 'Dangerous', '00:04:53', NULL, NULL, 4);
+INSERT INTO morceau VALUES (25, 'And We Run', '00:03:50', NULL, NULL, 4);
+INSERT INTO morceau VALUES (26, 'Paradise (What About Us?)', '00:05:20', NULL, NULL, 4);
+INSERT INTO morceau VALUES (27, 'Edge of the World', '00:04:55', NULL, NULL, 4);
+INSERT INTO morceau VALUES (28, 'Silver Moonlight', '00:05:17', NULL, NULL, 4);
+INSERT INTO morceau VALUES (29, 'Covered by Roses', '00:04:48', NULL, NULL, 4);
+INSERT INTO morceau VALUES (30, 'Dog Days', '00:06:12', NULL, NULL, 4);
+INSERT INTO morceau VALUES (31, 'Tell Me Why', '00:06:12', NULL, NULL, 4);
+INSERT INTO morceau VALUES (32, 'Whole World Is Watching', '00:04:03', NULL, NULL, 4);
 
-INSERT INTO morceau VALUES (33, 'Bambino', '00:03:31', NULL, NULL, 3);
-INSERT INTO morceau VALUES (34, 'Fado', '00:03:37', NULL, NULL, 3);
-INSERT INTO morceau VALUES (35, 'Aime-moi', '00:02:48', NULL, NULL, 3);
-INSERT INTO morceau VALUES (36, 'Flamenco Bleu', '00:02:48', NULL, NULL, 3);
-INSERT INTO morceau VALUES (37, 'Le torrent', '00:02:54', NULL, NULL, 3);
-INSERT INTO morceau VALUES (38, 'Madona', '00:03:04', NULL, NULL, 3);
-INSERT INTO morceau VALUES (39, 'Guitare Flamenco', '00:03:06', NULL, NULL, 3);
-INSERT INTO morceau VALUES (40, 'Gitane', '00:02:55', NULL, NULL, 3);
-INSERT INTO morceau VALUES (41, 'Mon coeur va', '00:02:52', NULL, NULL, 3);
-INSERT INTO morceau VALUES (42, 'La Violetera', '00:03:48', NULL, NULL, 3);
+INSERT INTO morceau VALUES (33, 'Bambino', '00:03:31', NULL, NULL, 5);
+INSERT INTO morceau VALUES (34, 'Fado', '00:03:37', NULL, NULL, 5);
+INSERT INTO morceau VALUES (35, 'Aime-moi', '00:02:48', NULL, NULL, 5);
+INSERT INTO morceau VALUES (36, 'Flamenco Bleu', '00:02:48', NULL, NULL, 5);
+INSERT INTO morceau VALUES (37, 'Le torrent', '00:02:54', NULL, NULL, 5);
+INSERT INTO morceau VALUES (38, 'Madona', '00:03:04', NULL, NULL, 5);
+INSERT INTO morceau VALUES (39, 'Guitare Flamenco', '00:03:06', NULL, NULL, 5);
+INSERT INTO morceau VALUES (40, 'Gitane', '00:02:55', NULL, NULL, 5);
+INSERT INTO morceau VALUES (41, 'Mon coeur va', '00:02:52', NULL, NULL, 5);
+INSERT INTO morceau VALUES (42, 'La Violetera', '00:03:48', NULL, NULL, 5);
 
 ALTER SEQUENCE morceau_idmo_seq RESTART WITH 43;
 
