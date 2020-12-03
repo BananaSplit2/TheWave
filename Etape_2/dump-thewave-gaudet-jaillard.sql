@@ -270,7 +270,7 @@ INSERT INTO morceau VALUES (42, 'La Violetera', '00:03:48', NULL, NULL, 5);
 ALTER SEQUENCE morceau_idmo_seq RESTART WITH 43;
 
 /* albums */
-INSERT INTO album VALUES (1, 'Dark Passion Play', '2007-09-26', NULL, 'Dark Passion Play est le sixième album du groupe Nightwish, sorti le 28 septembre 2007 en Europe, excepté en France où il est paru le premier octobre. C''est le premier album avec la chanteuse Anette Olzon.', 3);
+INSERT INTO album VALUES (1, 'Dark Passion Play', '2007-09-26', 'Dark_Passion_Play.jpg', 'Dark Passion Play est le sixième album du groupe Nightwish, sorti le 28 septembre 2007 en Europe, excepté en France où il est paru le premier octobre. C''est le premier album avec la chanteuse Anette Olzon.', 3);
 INSERT INTO album VALUES (2, 'Hydra', '2014-07-22', NULL, 'Hydra est le sixième album studio du groupe néerlandais de metal symphonique Within Temptation, sorti le 22 janvier 2014 sur les labels Nuclear Blast, Dramatico, Bertelsmann et Roadrunner Records. ', 4);
 INSERT INTO album VALUES(3, 'Son nom est Dalida', '1956-12-01', 'son_nom_est_dalida.jpg', 'Son nom est Dalida est le premier album en français de la chanteuse Dalida, publié en 1957, par Barclay Records (numéro de catalogue 80055).', 5);
 
