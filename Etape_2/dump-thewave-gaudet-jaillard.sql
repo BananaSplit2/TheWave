@@ -1,21 +1,3 @@
-
-/*Mise au propre BDD --TheWave--*/
-
-DROP TABLE IF EXISTS artiste CASCADE;
-DROP TABLE IF EXISTS groupe CASCADE;
-DROP TABLE IF EXISTS membre CASCADE;
-DROP TABLE IF EXISTS morceau CASCADE;
-DROP TABLE IF EXISTS album CASCADE;
-DROP TABLE IF EXISTS utilisateur CASCADE;
-DROP TABLE IF EXISTS playlist CASCADE;
-
-DROP TABLE IF EXISTS participe CASCADE;
-DROP TABLE IF EXISTS albumContient CASCADE;
-DROP TABLE IF EXISTS playlistContient CASCADE;
-DROP TABLE IF EXISTS suitGroupe CASCADE;
-DROP TABLE IF EXISTS suitUtilisateur CASCADE;
-DROP TABLE IF EXISTS historique CASCADE;
-
 /*Création de BDD --The Wave--*/
 
 CREATE TABLE artiste (
@@ -129,13 +111,16 @@ INSERT INTO utilisateur VALUES ('Galineras', 'gali.neras@mail.fr', '2020-11-25',
 INSERT INTO utilisateur VALUES ('BananaSplit', 'banana.split@mail.fr', '2020-11-25', '42finalanswer');
 INSERT INTO utilisateur VALUES ('JeanKevin69', 'jean.kevin@mail.fr', '2020-11-25', 'tupeuxpastest');
 INSERT INTO utilisateur VALUES ('CpasGrave', 'david.goodenough@mail.fr', '2020-11-26', '0000');
+INSERT INTO utilisateur VALUES ('mamiedu77', 'gertrude@aol.fr', '1934-06-12', 'azerty');
 
 /* groupes */
 INSERT INTO groupe VALUES (1, 'The Beatles', '1960-08-15', 'britannique', 'pop rock');
 INSERT INTO groupe VALUES (2, 'Santa Claws', '1982-12-25', 'americain', 'pop');
 INSERT INTO groupe VALUES (3, 'Nightwish', '1996-12-01', 'finlandais', 'heavy metal');
 INSERT INTO groupe VALUES (4, 'Within Temptation', '1996-01-01', 'néerlandais', 'metal symphonique');
-ALTER SEQUENCE groupe_idg_seq RESTART WITH 5;
+INSERT INTO groupe VALUES (5, 'Dalida', '1956-10-28', 'français', 'variété française');
+
+ALTER SEQUENCE groupe_idg_seq RESTART WITH 6;
 
 /* artistes */
 INSERT INTO artiste VALUES (1, 'Lennon', 'John', 'britannique', '1940-10-09', '1980-12-08');
@@ -178,7 +163,10 @@ INSERT INTO artiste VALUES (34, 'Hellenberg', 'Nicka', NULL, NULL);
 INSERT INTO artiste VALUES (35, 'Jones', 'Howard', 'américain', '1970-07-20');
 INSERT INTO artiste VALUES (36, 'Joiner', 'Alvin', 'américain', '1974-09-18');
 INSERT INTO artiste VALUES (37, 'Pirner', 'David', 'américain', '1964-04-16');
-ALTER SEQUENCE artiste_ida_seq RESTART WITH 38;
+
+INSERT INTO artiste VALUES (38, 'Gigliotti', 'Iolanda', 'française', '1933-01-17', '1987-05-03');
+
+ALTER SEQUENCE artiste_ida_seq RESTART WITH 39;
 
 /* membres */
 INSERT INTO membre VALUES (1, 'guitariste', '1960-08-15', '1969-09-20', 1, 1);
@@ -228,17 +216,19 @@ INSERT INTO membre VALUES (40, 'batteur', '1998-06-01', '1999-02-01', 32, 4);
 INSERT INTO membre VALUES (41, 'batteur', '2001-06-01', '2010-01-01', 33, 4);
 INSERT INTO membre VALUES (42, 'batteur', '2010-01-01', '2011-02-01', 34, 4);
 
-ALTER SEQUENCE membre_idme_seq RESTART WITH 43;
+INSERT INTO membre VALUES (44, 'chanteuse', '1956-10-28', '1987-05-03', 38, 5);
+
+ALTER SEQUENCE membre_idme_seq RESTART WITH 44;
 
 /* morceaux */
 INSERT INTO morceau VALUES (1, 'We wish you a merry christmas', '00:05:31', 'www.wish-you.com/merry_christmas/lyrics', 'www.wish-you.com/merry_christmas/audio', 2);
 INSERT INTO morceau VALUES (2, 'Ho ho ho', '00:02:54', 'www.wish-you.com/ho_ho_ho/lyrics', 'www.wish-you.com/ho_ho_ho/audio', 2);
 INSERT INTO morceau VALUES (3, 'He is coming to town', '00:04:04', 'www.wish-you.com/coming_town/lyrics', 'www.wish-you.com/coming_town/audio', 2);
-INSERT INTO morceau VALUES (4, 'Let it be', '00:03:46', NULL, 'https://www.youtube.com/watch?v=_wYyWA6ZdVU', 1);
-INSERT INTO morceau VALUES (5, 'Hey Jude', '00:04:33', NULL, 'https://www.youtube.com/watch?v=7qMls5yxP1w', 1);
+INSERT INTO morceau VALUES (4, 'Let it be', '00:03:46', NULL, NULL, 1);
+INSERT INTO morceau VALUES (5, 'Hey Jude', '00:04:33', NULL, 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', 1);
 INSERT INTO morceau VALUES (6, 'Yellow submarine', '00:02:37', NULL, NULL, 1);
-INSERT INTO morceau VALUES (7, 'Yesterday', '00:02:05', NULL, 'https://www.youtube.com/watch?v=jo505ZyaCbA', 1);
-INSERT INTO morceau VALUES (8, 'Hello, goodbye', '00:03:07', NULL, 'https://www.youtube.com/watch?v=BD75RTV9P5w', 1);
+INSERT INTO morceau VALUES (7, 'Yesterday', '00:02:05', NULL, NULL, 1);
+INSERT INTO morceau VALUES (8, 'Hello, goodbye', '00:03:07', NULL, NULL, 1);
 
 INSERT INTO morceau VALUES (9, 'The Poet and the Pendulum', '00:13:53', 'the_poet_and_the_pendulum.txt', 'the_poet_and_the_pendulum.mp3', 3);
 INSERT INTO morceau VALUES (10, 'Bye Bye Beautiful', '00:04:15', NULL, NULL, 3);
@@ -266,13 +256,25 @@ INSERT INTO morceau VALUES (30, 'Dog Days', '00:06:12', NULL, NULL, 3);
 INSERT INTO morceau VALUES (31, 'Tell Me Why', '00:06:12', NULL, NULL, 3);
 INSERT INTO morceau VALUES (32, 'Whole World Is Watching', '00:04:03', NULL, NULL, 3);
 
-ALTER SEQUENCE morceau_idmo_seq RESTART WITH 33;
+INSERT INTO morceau VALUES (33, 'Bambino', '00:03:31', NULL, NULL, 3);
+INSERT INTO morceau VALUES (34, 'Fado', '00:03:37', NULL, NULL, 3);
+INSERT INTO morceau VALUES (35, 'Aime-moi', '00:02:48', NULL, NULL, 3);
+INSERT INTO morceau VALUES (36, 'Flamenco Bleu', '00:02:48', NULL, NULL, 3);
+INSERT INTO morceau VALUES (37, 'Le torrent', '00:02:54', NULL, NULL, 3);
+INSERT INTO morceau VALUES (38, 'Madona', '00:03:04', NULL, NULL, 3);
+INSERT INTO morceau VALUES (39, 'Guitare Flamenco', '00:03:06', NULL, NULL, 3);
+INSERT INTO morceau VALUES (40, 'Gitane', '00:02:55', NULL, NULL, 3);
+INSERT INTO morceau VALUES (41, 'Mon coeur va', '00:02:52', NULL, NULL, 3);
+INSERT INTO morceau VALUES (42, 'La Violetera', '00:03:48', NULL, NULL, 3);
+
+ALTER SEQUENCE morceau_idmo_seq RESTART WITH 43;
 
 /* albums */
 INSERT INTO album VALUES (1, 'Dark Passion Play', '2007-09-26', NULL, 'Dark Passion Play est le sixième album du groupe Nightwish, sorti le 28 septembre 2007 en Europe, excepté en France où il est paru le premier octobre. C''est le premier album avec la chanteuse Anette Olzon.', 3);
 INSERT INTO album VALUES (2, 'Hydra', '2014-07-22', NULL, 'Hydra est le sixième album studio du groupe néerlandais de metal symphonique Within Temptation, sorti le 22 janvier 2014 sur les labels Nuclear Blast, Dramatico, Bertelsmann et Roadrunner Records. ', 4);
+INSERT INTO album VALUES(3, 'Son nom est Dalida', '1956-12-01', 'son_nom_est_dalida.jpg', 'Son nom est Dalida est le premier album en français de la chanteuse Dalida, publié en 1957, par Barclay Records (numéro de catalogue 80055).', 5);
 
-ALTER SEQUENCE album_idal_seq RESTART WITH 3;
+ALTER SEQUENCE album_idal_seq RESTART WITH 4;
 
 /* albumContient */
 
@@ -301,6 +303,17 @@ INSERT INTO albumContient VALUES (2, 29, 7);
 INSERT INTO albumContient VALUES (2, 30, 8);
 INSERT INTO albumContient VALUES (2, 31, 9);
 INSERT INTO albumContient VALUES (2, 32, 10);
+
+INSERT INTO albumContient VALUES (3, 33, 1);
+INSERT INTO albumContient VALUES (3, 34, 2);
+INSERT INTO albumContient VALUES (3, 35, 3);
+INSERT INTO albumContient VALUES (3, 36, 4);
+INSERT INTO albumContient VALUES (3, 37, 5);
+INSERT INTO albumContient VALUES (3, 38, 6);
+INSERT INTO albumContient VALUES (3, 39, 7);
+INSERT INTO albumContient VALUES (3, 40, 8);
+INSERT INTO albumContient VALUES (3, 41, 9);
+INSERT INTO albumContient VALUES (3, 42, 10);
 
 /* participations */
 INSERT INTO participe VALUES (5, 1);
@@ -479,10 +492,23 @@ INSERT INTO participe VALUES (20, 32);
 INSERT INTO participe VALUES (23, 32);
 INSERT INTO participe VALUES (37, 32);
 
+INSERT INTO participe VALUES (38, 33);
+INSERT INTO participe VALUES (38, 34);
+INSERT INTO participe VALUES (38, 35);
+INSERT INTO participe VALUES (38, 36);
+INSERT INTO participe VALUES (38, 37);
+INSERT INTO participe VALUES (38, 38);
+INSERT INTO participe VALUES (38, 39);
+INSERT INTO participe VALUES (38, 40);
+INSERT INTO participe VALUES (38, 41);
+INSERT INTO participe VALUES (38, 42);
+
+
 /* playlist */
 
 INSERT INTO playlist VALUES (1, 'du bon son métal', 'les morceaux que j''adore', false, 'JeanKevin69');
 INSERT INTO playlist VALUES (2, 'ma playlist perso', NULL, true, 'CpasGrave');
+INSERT INTO playlist VALUES (3, 'dalida, en veux tu en voila', 'c''était la bonne époque....', false, 'mamiedu77');
 
 /* playlistContient */
 
@@ -501,6 +527,20 @@ INSERT INTO playlistContient VALUES (2, 28, 3);
 INSERT INTO playlistContient VALUES (2, 7, 4);
 INSERT INTO playlistContient VALUES (2, 2, 5);
 
+INSERT INTO playlistContient VALUES (3, 33, 1);
+INSERT INTO playlistContient VALUES (3, 33, 2);
+INSERT INTO playlistContient VALUES (3, 33, 3);
+INSERT INTO playlistContient VALUES (3, 33, 4);
+INSERT INTO playlistContient VALUES (3, 33, 5);
+INSERT INTO playlistContient VALUES (3, 33, 6);
+INSERT INTO playlistContient VALUES (3, 39, 7);
+INSERT INTO playlistContient VALUES (3, 40, 8);
+INSERT INTO playlistContient VALUES (3, 41, 9);
+INSERT INTO playlistContient VALUES (3, 42, 10);
+INSERT INTO playlistContient VALUES (3, 34, 11);
+INSERT INTO playlistContient VALUES (3, 35, 12);
+INSERT INTO playlistContient VALUES (3, 33, 13);
+
 /* suitGroupe */
 
 INSERT INTO suitGroupe VALUES ('JeanKevin69', 3);
@@ -511,6 +551,7 @@ INSERT INTO suitGroupe VALUES ('CpasGrave', 1);
 /* suitUtilisateur */
 INSERT INTO suitUtilisateur VALUES ('BananaSplit', 'Galineras');
 INSERT INTO suitUtilisateur VALUES ('CpasGrave', 'Galineras');
+INSERT INTO suitUtilisateur VALUES ('CpasGrave', 'mamiedu77');
 INSERT INTO suitUtilisateur VALUES ('Galineras', 'BananaSplit');
 
 /* historique */
@@ -522,3 +563,6 @@ INSERT INTO historique VALUES ('CpasGrave', 6, '2020-08-03 08:22:17');
 INSERT INTO historique VALUES ('CpasGrave', 7, '2020-08-03 08:25:01');
 INSERT INTO historique VALUES ('CpasGrave', 8, '2020-08-03 08:27:09');
 INSERT INTO historique VALUES ('Galineras', 3, '2020-11-27 13:59:59');
+INSERT INTO historique VALUES ('mamiedu77', 33, '2020-12-25 15:23:23');
+INSERT INTO historique VALUES ('mamiedu77', 33, '2020-12-25 15:26:47');
+INSERT INTO historique VALUES ('mamiedu77', 33, '2020-12-25 15:32:25');

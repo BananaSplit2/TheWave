@@ -1,3 +1,4 @@
+/*Mise au propre BDD --TheWave--*/
 
 DROP TABLE IF EXISTS artiste CASCADE;
 DROP TABLE IF EXISTS groupe CASCADE;
@@ -13,16 +14,3 @@ DROP TABLE IF EXISTS playlistContient CASCADE;
 DROP TABLE IF EXISTS suitGroupe CASCADE;
 DROP TABLE IF EXISTS suitUtilisateur CASCADE;
 DROP TABLE IF EXISTS historique CASCADE;
-
-
-
-
-
-
-
-
-
-
-
-
-
