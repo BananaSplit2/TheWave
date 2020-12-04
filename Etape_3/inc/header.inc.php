@@ -17,10 +17,10 @@
         <a class="navbar-brand" href="#"><img src="img/logo_theWave2.png" alt="logo thewave" style="max-height:6vh"></a>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Accueil</a>
+                <a class="nav-link" href="index.php">Accueil</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Recherche</a>
+                <a class="nav-link" href="search.php">Recherche</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Suggestions</a>
