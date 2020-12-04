@@ -1,8 +1,8 @@
 <?php
 require('inc/header.inc.php')
 ?>
- 
-  <!-- CORPS DE LA PAGE  -->
+
+<main class="container">
 	<div class="text-white" style="background-color: #757575">
 	  <form action="#" method="get" class="text-center py-3  background-color: #1380CC text-align: center">
         
@@ -35,6 +35,7 @@ require('inc/header.inc.php')
         <input type="image" src="img/loupe2.png" name="rechercher" alt="Rechercher" width="30" height="30">
       </form>
     </div>
+</main>
 
 <?php
 require('inc/footer.inc.php')

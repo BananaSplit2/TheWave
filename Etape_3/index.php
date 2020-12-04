@@ -3,7 +3,7 @@ require("inc/header.inc.php");
 require("inc/connexiondb.php");
 ?>
 
-<div class="container-fluid">
+<main class="container">
     <!-- Content here -->
     <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h1 class="display-4">Dark Passion Play</h1>
@@ -16,7 +16,7 @@ require("inc/connexiondb.php");
                 }
             ?>
     </div>
-</div>
+</main>
 
 <?php
 require("inc/footer.inc.php");

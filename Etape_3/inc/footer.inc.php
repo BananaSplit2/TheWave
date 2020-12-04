@@ -10,7 +10,7 @@
                 <?php echo date("h:i:sa"); ?>
             </div>
             <div class="col">
-                Clément Gaudet, Maxime Jaillard
+                © 2020 Clément Gaudet, Maxime Jaillard
             </div>
             <div class="col-1">
                 <img src="img/logo-uge.png" class="img-fluid">

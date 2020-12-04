@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #1380CC">
+    <nav class="navbar navbar-expand-sm navbar-dark fixed-top" style="background-color: #1380CC">
         <a class="navbar-brand" href="#"><img src="img/logo_theWave2.png" alt="logo thewave" style="max-height:6vh"></a>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
