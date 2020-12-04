@@ -1,4 +1,10 @@
 <?php
+session_start();
+session_regenerate_id();
+if (!isset($_SESSION['pseudo'])) {
+    header("Location: loginform.php");
+}
+
 require("inc/connexiondb.php");
 require("inc/header.inc.php");
 
@@ -25,7 +31,7 @@ else {
         die();
     }
 
-    $morceaux = $db->prepare("SELECT titrem, duree, num FROM morceau NATURAL JOIN albumcontient WHERE idal=:idal;");
+    $morceaux = $db->prepare("SELECT titrem, duree, num FROM morceau NATURAL JOIN albumcontient WHERE idal=:idal ORDER BY num;");
     $morceaux->bindParam(':idal', $_GET['idal']);
     $morceaux->execute();
 }
@@ -51,7 +57,7 @@ else {
                 </tr>
                 <tr>
                     <td>Genre</td>
-                    <td><?php echo ucfirst($album['genre']) ?></td>
+                    <td><?php echo ucwords($album['genre']) ?></td>
                 </tr>
                 <tr>
                     <td>Date de parution</td>
