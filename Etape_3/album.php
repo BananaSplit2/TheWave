@@ -31,7 +31,7 @@ else {
         die();
     }
 
-    $morceaux = $db->prepare("SELECT titrem, duree, num FROM morceau NATURAL JOIN albumcontient WHERE idal=:idal ORDER BY num;");
+    $morceaux = $db->prepare("SELECT idmo, titrem, duree, num FROM morceau NATURAL JOIN albumcontient WHERE idal=:idal ORDER BY num;");
     $morceaux->bindParam(':idal', $_GET['idal']);
     $morceaux->execute();
 }
@@ -71,7 +71,14 @@ else {
         </div>
         <div class="col-3">
             <h3>Couverture</h3>
-            <img src="img/couv/<?php echo $album['couv']; ?>" class="img-fluid" alt="couverture">
+            <?php
+            if (!empty($album['couv'])) {
+                echo '<img src="img/couv/' . $album['couv'] . '" class="img-fluid" alt="couverture">';
+            }
+            else {
+                echo '<small class="text-muted">Couverture non disponible</small>';
+            }
+            ?>
         </div>
     </div>
     <div class="row">
@@ -88,7 +95,7 @@ else {
             foreach($morceaux as $morceau) {
                 $duree = explode(":", $morceau['duree']);
                 echo '<tr><td>' . $morceau['num'] . '</td>';
-                echo '<td>' . $morceau['titrem'] . '</td>';
+                echo '<td><a href="morceau.php?idmo=' . $morceau['idmo'] . '">' . $morceau['titrem'] . '</a></td>';
                 echo '<td>' . $duree[1] . ':' . $duree[2] . '</td>';
             }
             $morceaux->closeCursor();
