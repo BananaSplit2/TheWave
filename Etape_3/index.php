@@ -3,7 +3,7 @@ session_start();
 session_regenerate_id();
 
 require("inc/header.inc.php");
-require("inc/connexiondb.php");
+require("inc/connexiondb.inc.php");
 ?>
 
 <main class="container">

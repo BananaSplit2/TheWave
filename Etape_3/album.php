@@ -1,11 +1,8 @@
 <?php
 session_start();
 session_regenerate_id();
-if (!isset($_SESSION['pseudo'])) {
-    header("Location: loginform.php");
-}
-
-require("inc/connexiondb.php");
+require("inc/checkauth.inc.php");
+require("inc/connexiondb.inc.php");
 require("inc/header.inc.php");
 
 if (!isset($_GET['idal'])) {

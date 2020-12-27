@@ -3,7 +3,7 @@ session_start();
 if (isset($_SESSION['pseudo'])) {
     header("Location: index.php");
 }
-require("inc/connexiondb.php");
+require("inc/connexiondb.inc.php");
 
 if (isset($_POST['pseudo']) && isset($_POST['password'])) {
     $requete = $db->prepare("SELECT * FROM utilisateur WHERE pseudo=:pseudo AND mdp=:mdp;");

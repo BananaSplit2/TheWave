@@ -1,11 +1,8 @@
 <?php
 session_start();
 session_regenerate_id();
-if (!isset($_SESSION['pseudo'])) {
-    header("Location: loginform.php");
-}
-
-require("inc/connexiondb.php");
+require("inc/checkauth.inc.php");
+require("inc/connexiondb.inc.php");
 require("inc/header.inc.php");
 
 if (!isset($_GET['idmo'])) {
@@ -90,23 +87,23 @@ else {
     <div class="row">
         <div class="col-4">
             <h3 class="py-2">Artistes</h3>
-            <div class="list-group">
+            <ul class="list-group">
                 <?php
                 foreach($artistes as $artiste) {
-                    echo '<a href="#" class="list-group-item list-group-item-action">' .
-                        $artiste['noma'] . ' ' . $artiste['prenom'] . '</a>';
+                    echo '<li class="list-group-item">' .
+                        $artiste['noma'] . ' ' . $artiste['prenom'] . '</li>';
                 }
                 $artistes->closeCursor();
                 ?>
-            </div>
+            </ul>
             <?php
             if ($guests->rowcount() > 0) {
-                echo '<h3 class="py-2">Guests</h3><div class="list-group">';
+                echo '<h3 class="py-2">Guests</h3><ul class="list-group">';
                 foreach($guests as $guest) {
-                    echo '<a href="#" class="list-group-item list-group-item-action">' .
-                        $guest['noma'] . ' ' . $guest['prenom'] . '</a>';
+                    echo '<li class="list-group-item">' .
+                        $guest['noma'] . ' ' . $guest['prenom'] . '</li>';
                 }
-                echo '</div>';
+                echo '</ul>';
             }
             ?>
         </div>

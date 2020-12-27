@@ -1,6 +1,6 @@
 <?php
 session_start();
+require("inc/checkauth.inc.php");
 unset($_SESSION['pseudo']);
 session_destroy();
-session_start();
 header("Location: index.php");
