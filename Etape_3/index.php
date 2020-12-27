@@ -7,6 +7,15 @@ require("inc/connexiondb.inc.php");
 ?>
 
 <main class="container">
+    <?php
+    if (isset($_GET['login_successful']) && $_GET['login_successful'] == 1) {
+        echo '<div class="alert alert-primary" role="alert">
+            Vous vous êtes connecté en tant que '. $_SESSION['pseudo'] .'.</div>';
+    }
+    elseif (isset($_GET['logout_successful']) && $_GET['logout_successful'] == 1) {
+        echo '<div class="alert alert-primary" role="alert">Vous vous êtes déconnecté.</div>';
+    }
+    ?>
     <div class="row">
         <div class="col text-center">
             <h1>Accueil (bien vide ma foi)</h1>

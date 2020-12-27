@@ -6,20 +6,37 @@ if (isset($_SESSION['pseudo'])) {
 require("inc/connexiondb.inc.php");
 
 if (isset($_POST['pseudo']) && isset($_POST['password'])) {
-    $requete = $db->prepare("SELECT * FROM utilisateur WHERE pseudo=:pseudo AND mdp=:mdp;");
+    $requete = $db->prepare("SELECT * FROM utilisateur WHERE pseudo=:pseudo;");
     $requete->bindParam(':pseudo', $_POST['pseudo']);
-    $requete->bindParam(':mdp', $_POST['password']);
     $requete->execute();
     $resultat = $requete->fetch();
 
     if ($resultat != false) {
-        $_SESSION['pseudo'] = $resultat['pseudo'];
-        header("Location: index.php");
+        if ($_POST['password'] == $resultat['mdp']) {
+            $_SESSION['pseudo'] = $resultat['pseudo'];
+            header("Location: index.php?login_successful=1");
+        }
+        else {
+            $message = "Mot de passe incorrect.";
+        }
     }
     else {
-        echo "Erreur de connexion, pseudo ou mot de passe incorrect.";
+        $message = "Pseudo inexistant.";
     }
 }
 else {
-    echo "Informations manquantes.";
+    $message = "Informations manquantes.";
 }
+
+require("inc/header.inc.php");
+?>
+
+    <main class="container">
+        <div class="alert alert-danger" role="alert">
+            <?php echo $message . ' <a href="loginform.php">Retourner à la page de connexion.</a>'; ?>
+        </div>
+    </main>
+
+<?php
+require("inc/footer.inc.php");
+?>
