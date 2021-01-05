@@ -30,13 +30,18 @@ else {
     }
 
     // Requete pour récupérer les membres actuels
-    $requete = $db->prepare("SELECT DISTINCT prenom, noma FROM groupe 
-                                    NATURAL JOIN membre
-                                    NATURAL JOIN artiste
+    $requete = $db->prepare("SELECT DISTINCT prenom, noma FROM membre NATURAL JOIN artiste
                                     WHERE idg=:idg AND datefin IS NULL;");
     $requete->bindParam(':idg', $_GET['idg']);
     $requete->execute();
     $membres_actu = $requete->fetchAll();
+
+    //Requete pour récupérer tous les membres
+    $requete = $db->prepare("SELECT DISTINCT ida, prenom, noma, nationa, datenais, datemort FROM membre NATURAL JOIN artiste
+                                    WHERE idg=:idg;");
+    $requete->bindParam(':idg', $_GET['idg']);
+    $requete->execute();
+    $membres_tous = $requete->fetchAll();
 }
 ?>
 
@@ -47,7 +52,6 @@ else {
         </div>
     </div>
     <div class="row">
-        <div class="col">
             <h3>Informations sur le groupe</h3>
             <table class="table table-sm">
                 <tr class="table-primary">
@@ -79,7 +83,6 @@ else {
                     </td>
                 </tr>
             </table>
-        </div>
     </div>
     <div class="row">
         <h3>Liste des membres</h3>
@@ -94,6 +97,32 @@ else {
                     <th>Participations</th>
                 </tr>
             </thead>
+            <?php
+            foreach ($membres_tous as $membre) {
+                echo '<tr><td>'. $membre['noma'] .'</td><td>'. $membre['prenom'] .'</td><td>'. $membre['nationa'] .'</td>
+                    <td>'. $membre['datenais'] .'</td><td>'. $membre['datemort'] .'</td>';
+                echo '<td><ul>';
+
+                // Requete pour obtenir les participations de l'artiste au groupe
+                $requete = $db->prepare("SELECT rolem, datedeb, datefin FROM membre WHERE idg=:idg AND ida=:ida ORDER BY datedeb");
+                $requete->bindParam(':idg', $_GET['idg']);
+                $requete->bindParam('ida', $membre['ida']);
+                $requete->execute();
+                $participations = $requete->fetchAll();
+
+                foreach ($participations as $participation) {
+                    if (empty($participation['datefin'])) {
+                        $datefin = "aujourd'hui";
+                    }
+                    else {
+                        $datefin = $participation['datefin'];
+                    }
+                    echo '<li>' . $participation['rolem'] . ' de ' . $participation['datedeb'] . ' à ' . $datefin . '</li>';
+                }
+                echo '</ul></td></tr>';
+
+            }
+            ?>
         </table>
     </div>
 </main>
