@@ -88,7 +88,7 @@ if (isset($type)) {
 		}
 		else {
 			$requeteTitre = $db->prepare("SELECT * FROM groupe
-                                    WHERE nomg LIKE %:nomg% ORDER BY nomg");
+                                    WHERE nomg LIKE '%' || :nomg || '%' ORDER BY nomg");
 			$requeteTitre->bindParam(':nomg', $titre);
 		}
 		

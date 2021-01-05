@@ -5,6 +5,11 @@ if (isset($_SESSION['pseudo'])) {
 require("inc/header.inc.php"); ?>
 
 <main class="container">
+    <?php
+    if (isset($_GET['registered']) && $_GET['registered'] == 1) {
+        echo '<div class="alert alert-primary" role="alert">Votre compte a bien été créé, vous pouvez maintenant vous connecter</div>';
+    }
+    ?>
     <div class="row">
         <h1 class="py-2">Page de connexion</h1>
     </div>
@@ -22,6 +27,9 @@ require("inc/header.inc.php"); ?>
                 <button type="submit" class="btn btn-primary">Se connecter</button>
             </form>
         </div>
+    </div>
+    <div class="row my-3">
+        <p>Si vous n'avez pas de compte, <a href="registerform.php">inscrivez-vous ici.</a></p>
     </div>
 </main>
 

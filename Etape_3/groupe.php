@@ -29,6 +29,12 @@ else {
         die();
     }
 
+    // requete pour récupérer le nomber de followers
+    $requete = $db->prepare("SELECT count(*) FROM suitgroupe WHERE idg=:idg");
+    $requete->bindParam(':idg', $_GET['idg']);
+    $requete->execute();
+    $followers = $requete->fetchColumn();
+
     // Requete pour récupérer les membres actuels
     $requete = $db->prepare("SELECT DISTINCT prenom, noma FROM membre NATURAL JOIN artiste
                                     WHERE idg=:idg AND datefin IS NULL;");
@@ -42,6 +48,18 @@ else {
     $requete->bindParam(':idg', $_GET['idg']);
     $requete->execute();
     $membres_tous = $requete->fetchAll();
+
+    // Requete pour récupérer les albums
+    $requete = $db->prepare("SELECT idal, titrea, dateparu FROM album WHERE idg = :idg ORDER BY dateparu");
+    $requete->bindParam(':idg', $_GET['idg']);
+    $requete->execute();
+    $albums = $requete->fetchAll();
+
+    // Requete pour récupérer les morceaux
+    $requete = $db->prepare("SELECT idmo, titrem, duree, titrea FROM morceau NATURAL JOIN albumcontient NATURAL JOIN album WHERE idg = :idg ORDER BY titrem");
+    $requete->bindParam(':idg', $_GET['idg']);
+    $requete->execute();
+    $morceaux = $requete->fetchAll();
 }
 ?>
 
@@ -82,6 +100,10 @@ else {
                         </ul>
                     </td>
                 </tr>
+                <tr>
+                    <td>Nombre d'utilisateurs suivant le groupe</td>
+                    <td><?php echo $followers ?></td>
+                </tr>
             </table>
     </div>
     <div class="row">
@@ -121,6 +143,39 @@ else {
                 }
                 echo '</ul></td></tr>';
 
+            }
+            ?>
+        </table>
+    </div>
+    <div class="row">
+        <h3>Liste des albums</h3>
+        <table class="table table-sm table-striped">
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Date de parution</th>
+            </tr>
+            </thead>
+            <?php
+            foreach ($albums as $album) {
+                echo '<tr><td><a href="album.php?idal='. $album['idal'] .'">'. $album['titrea'] .'</a></td><td>'. $album['dateparu'] .'</td>';
+            }
+            ?>
+        </table>
+    </div>
+    <div class="row">
+        <h3>Liste des morceaux</h3>
+        <table class="table table-sm table-striped">
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Album</th>
+                <th>Durée</th>
+            </tr>
+            </thead>
+            <?php
+            foreach ($morceaux as $morceau) {
+                echo '<tr><td><a href="morceau.php?idmo='. $morceau['idmo'] .'">'. $morceau['titrem'] .'</a></td><td>'. $morceau['titrea'] .'</td><td>'. $morceau['duree'] .'</td>';
             }
             ?>
         </table>

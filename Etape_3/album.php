@@ -50,7 +50,7 @@ else {
                 </tr>
                 <tr>
                     <td>Groupe</td>
-                    <td><?php echo $album['nomg']; ?></td>
+                    <td><?php echo '<a href="groupe.php?idg='. $album['idg'] .'">'. $album['nomg'] .'</a>'; ?></td>
                 </tr>
                 <tr>
                     <td>Genre</td>
