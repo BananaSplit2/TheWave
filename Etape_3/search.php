@@ -39,7 +39,7 @@ require("inc/header.inc.php")
         <input type="image" src="img/loupe2.png" name="rechercher" alt="Rechercher" width="30" height="30">
       </form>
     </div>
-</main>
+
 
 <div class="text-center py-3  background-color: #1380CC text-align: center">
 <?php
@@ -240,8 +240,8 @@ if (isset($type)) {
 }
 ?>
 </div>
+</main>
 
 <?php
-echo '<br><br><br><br><br><br>';
 require('inc/footer.inc.php');
 ?>
