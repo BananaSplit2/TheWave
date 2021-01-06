@@ -30,7 +30,7 @@ require("inc/header.inc.php")
 		<br>
 		
 		<label for= "date">Date : </label>
-		<input type="text" id="date" name="date" style="color: gray">
+		<input type="number" id="date" name="date" style="color: gray">
 		
 		<label for= "artiste">Artiste : </label>
 		<input type="text" id="artiste" name="artiste" style="color: gray">
@@ -43,97 +43,175 @@ require("inc/header.inc.php")
 
 <div class="text-center py-3  background-color: #1380CC text-align: center">
 <?php
+
 if (isset($_GET['type'])) {
 	$type = $_GET['type'];
     echo 'Voici les ', $type;
 }
 
-if (isset($_GET['titre']) && $_GET['titre'] != "") {
+if (isset($_GET['titre'])) {
 	$titre = $_GET['titre'];
-    echo ' contenant "', $titre , '"';
+	if ($_GET['titre'] != "")
+		echo ' contenant "', $titre , '"';
 }
 
-if (isset($_GET['genre']) && $_GET['genre'] != "") {
+if (isset($_GET['genre'])) {
 	$genre = $_GET['genre'];
-    echo ' de genre ', $genre;
+	if ($_GET['genre'] != "")
+		echo ' de genre ', $genre;
 }
 
-if (isset($_GET['date']) && $_GET['date'] != "") {
+if (isset($_GET['date'])) {
 	$date = $_GET['date'];
-    echo ' du ', $date;
+	if ($_GET['date'] != "") {
+		$date = $_GET['date'];
+		echo ' de ', $date;
+	}
 }
 
-if (isset($_GET['artiste']) && $_GET['artiste'] != "") {
+if (isset($_GET['artiste'])) {
 	$artiste = $_GET['artiste'];
-    echo ' où ', $artiste , ' apparaît ';
+	if ($_GET['artiste'] != "")
+		echo ' où ', $artiste , ' apparaît ';
 }
 ?>
 
 </div>
 
 <?php
+
+$db = new PDO('pgsql:host=' . $host . ';dbname=' . $dbname, $user, $pass);
+
 if (isset($type)) {
-	/*
-	switch($type) {
-		case 'morceaux' : $type = 'morceau'; break;
-		case 'albums' : $type = 'album'; break;
-		case 'playlists' : $type = 'playlist'; break;
-		case 'groupes' : $type = 'groupe'; break;
-	}
-	*/
+	
+	/* requête groupes */
 	if ($type == 'groupes') {
-		/* requête du titre */
-		if ($titre == "") {
-			$requeteTitre = $db->prepare("SELECT * FROM groupe");
-		}
-		else {
-			$requeteTitre = $db->prepare("SELECT * FROM groupe
-                                    WHERE nomg LIKE %:nomg% ORDER BY nomg");
-			$requeteTitre->bindParam(':nomg', $titre);
-		}
 		
-		/* requête du genre */
-		if ($genre == "") {
-			$requeteGenre = $db->prepare("SELECT * FROM (:req)");
-			$requeteGenre->bindParam(':req', $requeteTitre);
-		}
-		else {
-			$requeteGenre = $db->prepare("SELECT * FROM (:req) AS tab1
-									WHERE genre = :genre");
-			$requeteGenre->bindParam(':req', $requeteTitre);
-			$requeteGenre->bindParam(':genre', $genre);
-		}
+		$requeteTexte = "SELECT DISTINCT nomg, datecrea, nationg, genre
+						FROM groupe NATURAL JOIN membre NATURAL JOIN artiste
+						WHERE nomg LIKE '%' || :nomg || '%'
+						AND genre LIKE '%' || :genre || '%'
+						AND ((noma LIKE '%' || :artiste || '%' OR prenom LIKE '%' || :artiste || '%')
+						OR (:artiste LIKE '%' || noma || '%' AND :artiste LIKE '%' || prenom || '%'))
+						ORDER BY nomg;";
+		$requete = $db->prepare($requeteTexte);
+		$requete->bindParam(':nomg', $titre);
+		$requete->bindParam(':genre', $genre);
+		$requete->bindParam(':artiste', $artiste);
 		
-		/* requête de date */
-		if ($date == "") {
-			$requeteDate = $db->prepare("SELECT * FROM (:req)");
-			$requeteDate->bindParam(':req', $requeteGenre);
-		}
-		else {
-			$requeteDate = $db->prepare("SELECT * FROM (:req) AS tab1
-									WHERE datecrea = :date");
-			$requeteDate->bindParam(':req', $requeteGenre);
-			$requeteDate->bindParam(':date', $date);
-		}
-		
-		/* requête d'artiste */
-		if ($artiste == "") {
-			$requeteArt = $db->prepare("SELECT * FROM (:req);");
-			$requeteArt->bindParam(':req', $requeteDate);
-		}
-		else {
-			$requeteArt = $db->prepare("SELECT * FROM (:req) AS tab1 NATURAL JOIN membre NATURAL JOIN artiste
-									WHERE (noma = :artiste OR prenom = :artiste);");
-			$requeteArt->bindParam(':req', $requeteDate);
-			$requeteArt->bindParam(':artiste', $artiste);
-		}
+		$requete->execute();
 	}
-	if (isset($genre) || isset($date) || isset($artiste)) {
-		echo 'BDD request';
+	
+	/* requête morceaux */
+	elseif ($type == 'morceaux') {
+		$requeteTexte = "SELECT DISTINCT titrem, duree, genre, nomg
+						FROM morceau
+						LEFT JOIN groupe ON groupe.idg = morceau.idg
+						LEFT JOIN participe ON morceau.idmo = participe.idmo
+						LEFT JOIN artiste ON participe.ida = artiste.ida
+						WHERE titrem LIKE '%' || :titre || '%'
+						AND genre LIKE '%' || :genre || '%'
+						AND ((noma LIKE '%' || :artiste || '%' OR prenom LIKE '%' || :artiste || '%')
+						OR (:artiste LIKE '%' || noma || '%' AND :artiste LIKE '%' || prenom || '%')
+						OR (noma IS NULL AND prenom IS NULL AND :artiste = ''))
+						ORDER BY titrem;";
+		$requete = $db->prepare($requeteTexte);
+		$requete->bindParam(':titre', $titre);
+		$requete->bindParam(':genre', $genre);
+		$requete->bindParam(':artiste', $artiste);
+		
+		$requete->execute();
+	}
+	
+	/* requête albums */
+	elseif ($type == 'albums') {
+		if ($_GET['date'] != "") {
+			$requeteTexte = "SELECT titrea, dateparu, couv, genre, nomg FROM (
+						SELECT DISTINCT album.idal, titrea, dateparu, couv, genre, nomg, dateparu - CAST(FLOOR(:date*365.24) AS integer) AS depuis
+						FROM album
+						NATURAL JOIN albumcontient
+						NATURAL JOIN morceau
+						LEFT JOIN groupe ON groupe.idg = album.idg
+						LEFT JOIN participe ON morceau.idmo = participe.idmo
+						LEFT JOIN artiste ON participe.ida = artiste.ida
+						WHERE titrea LIKE '%' || :titre || '%'
+						AND genre LIKE '%' || :genre || '%'
+						AND ((noma LIKE '%' || :artiste || '%' OR prenom LIKE '%' || :artiste || '%')
+						OR (:artiste LIKE '%' || noma || '%' AND :artiste LIKE '%' || prenom || '%')
+						OR (noma IS NULL AND prenom IS NULL AND :artiste = ''))
+						ORDER BY depuis DESC
+						) AS tab1
+						WHERE depuis < '0001-01-01' AND depuis > '0010-01-01 BC';";
+			$requete = $db->prepare($requeteTexte);
+			$requete->bindParam(':date', $date);
+		}
+		else {
+			$requeteTexte = "SELECT DISTINCT titrea, dateparu, couv, genre, nomg
+						FROM album
+						NATURAL JOIN albumcontient
+						NATURAL JOIN morceau
+						LEFT JOIN groupe ON groupe.idg = album.idg
+						LEFT JOIN participe ON morceau.idmo = participe.idmo
+						LEFT JOIN artiste ON participe.ida = artiste.ida
+						WHERE titrea LIKE '%' || :titre || '%'
+						AND genre LIKE '%' || :genre || '%'
+						AND ((noma LIKE '%' || :artiste || '%' OR prenom LIKE '%' || :artiste || '%')
+						OR (:artiste LIKE '%' || noma || '%' AND :artiste LIKE '%' || prenom || '%')
+						OR (noma IS NULL AND prenom IS NULL AND :artiste = ''))
+						ORDER BY dateparu DESC;";
+			$requete = $db->prepare($requeteTexte);
+		}
+		$requete->bindParam(':titre', $titre);
+		$requete->bindParam(':genre', $genre);
+		$requete->bindParam(':artiste', $artiste);
+		
+		$requete->execute();
+	}
+	
+	/* requête playlists */
+	elseif ($type == 'playlists') {
+		$requeteTexte = "SELECT DISTINCT titre, pseudo
+						FROM playlist
+						NATURAL JOIN playlistcontient
+						NATURAL JOIN morceau
+						LEFT JOIN groupe ON groupe.idg = morceau.idg
+						LEFT JOIN participe ON morceau.idmo = participe.idmo
+						LEFT JOIN artiste ON participe.ida = artiste.ida
+						WHERE titre LIKE '%' || :titre || '%'
+						AND genre LIKE '%' || :genre || '%'
+						AND ((noma LIKE '%' || :artiste || '%' OR prenom LIKE '%' || :artiste || '%')
+						OR (:artiste LIKE '%' || noma || '%' AND :artiste LIKE '%' || prenom || '%')
+						OR (noma IS NULL AND prenom IS NULL AND :artiste = ''))
+						ORDER BY titre DESC;";
+		$requete = $db->prepare($requeteTexte);
+		$requete->bindParam(':titre', $titre);
+		$requete->bindParam(':genre', $genre);
+		$requete->bindParam(':artiste', $artiste);
+		
+		$requete->execute();
+	}
+	?>
+	
+	<div class="text-center py-3  background-color: #1380CC text-align: center">
+	
+	<?php
+	for ($i=0; $i<100; $i++) {
+		$resultat = $requete->fetch();
+		if($resultat != FALSE) {
+			$j = 0;
+			foreach($resultat as $elem) {
+				if ($j % 2 == 0)
+					echo $elem." | ";
+				$j++;
+			}
+			echo '<br>';
+		}
 	}
 }
 ?>
+</div>
 
 <?php
-require('inc/footer.inc.php')
+echo '<br><br><br><br><br><br>';
+require('inc/footer.inc.php');
 ?>
