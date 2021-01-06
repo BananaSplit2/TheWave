@@ -87,7 +87,7 @@ if (isset($type)) {
 	/* requête groupes */
 	if ($type == 'groupes') {
 		
-		$requeteTexte = "SELECT DISTINCT nomg, datecrea, nationg, genre
+		$requeteTexte = "SELECT DISTINCT idg, nomg, datecrea, nationg, genre
 						FROM groupe NATURAL JOIN membre NATURAL JOIN artiste
 						WHERE nomg LIKE '%' || :nomg || '%'
 						AND genre LIKE '%' || :genre || '%'
@@ -104,7 +104,7 @@ if (isset($type)) {
 	
 	/* requête morceaux */
 	elseif ($type == 'morceaux') {
-		$requeteTexte = "SELECT DISTINCT titrem, duree, genre, nomg
+		$requeteTexte = "SELECT DISTINCT morceau.idmo, titrem, duree, genre, nomg
 						FROM morceau
 						LEFT JOIN groupe ON groupe.idg = morceau.idg
 						LEFT JOIN participe ON morceau.idmo = participe.idmo
@@ -126,7 +126,7 @@ if (isset($type)) {
 	/* requête albums */
 	elseif ($type == 'albums') {
 		if ($_GET['date'] != "") {
-			$requeteTexte = "SELECT titrea, dateparu, couv, genre, nomg FROM (
+			$requeteTexte = "SELECT idal, titrea, dateparu, couv, genre, nomg FROM (
 						SELECT DISTINCT album.idal, titrea, dateparu, couv, genre, nomg, dateparu - CAST(FLOOR(:date*365.24) AS integer) AS depuis
 						FROM album
 						NATURAL JOIN albumcontient
@@ -146,7 +146,7 @@ if (isset($type)) {
 			$requete->bindParam(':date', $date);
 		}
 		else {
-			$requeteTexte = "SELECT DISTINCT titrea, dateparu, couv, genre, nomg
+			$requeteTexte = "SELECT DISTINCT idal, titrea, dateparu, couv, genre, nomg
 						FROM album
 						NATURAL JOIN albumcontient
 						NATURAL JOIN morceau
@@ -170,7 +170,7 @@ if (isset($type)) {
 	
 	/* requête playlists */
 	elseif ($type == 'playlists') {
-		$requeteTexte = "SELECT DISTINCT titre, pseudo
+		$requeteTexte = "SELECT DISTINCT idp, titre, pseudo
 						FROM playlist
 						NATURAL JOIN playlistcontient
 						NATURAL JOIN morceau
@@ -195,18 +195,48 @@ if (isset($type)) {
 	<div class="text-center py-3  background-color: #1380CC text-align: center">
 	
 	<?php
+	$resultat = $requete->fetch();
+	echo '<table class="table table-sm table-striped">
+            <thead>
+                <tr>';
+    $i = 0;
+    if ($resultat != FALSE)
+		foreach(array_keys($resultat) as $key) {
+			if ($i % 2 == 0 && $i > 1)
+				echo "<th>$key</th>";
+			$i++;
+		}
+	else
+		echo "Oups! on dirait que nous n'avons rien trouvé avec ces critères...";
+    echo       '</tr>
+            </thead>';
+	
 	for ($i=0; $i<100; $i++) {
-		$resultat = $requete->fetch();
 		if($resultat != FALSE) {
 			$j = 0;
-			foreach($resultat as $elem) {
-				if ($j % 2 == 0)
-					echo $elem." | ";
+			
+			switch ($_GET['type']) {
+				case 'morceaux': 	echo '<a href="morceau.php?idmo=' . $resultat['idmo'] . '">'; break;
+				case 'albums': 		echo '<a href="album.php?idal=' . $resultat['idal'] . '">'; break;
+				case 'playlists': 	echo '<a href="playlist.php?idp=' . $resultat['idp'] . '">'; break;
+				case 'groupes': 	echo '<a href="groupe.php?idg=' . $resultat['idg'] . '">'; break;
+            }
+            echo '<tr>';
+            foreach($resultat as $elem) {
+				if ($j % 2 == 0 && $j > 1)
+					switch ($_GET['type']) {
+						case 'morceaux': 	echo '<td><a href="morceau.php?idmo=' . $resultat['idmo'] . '">'.$elem.'</a></td>'; break;
+						case 'albums': 		echo '<td><a href="album.php?idal=' . $resultat['idal'] . '">'.$elem.'</a></td>'; break;
+						case 'playlists': 	echo '<td><a href="playlist.php?idp=' . $resultat['idp'] . '">'.$elem.'</a></td>'; break;
+						case 'groupes': 	echo '<td><a href="groupe.php?idg=' . $resultat['idg'] . '">'.$elem.'</a></td>'; break;
+					}
 				$j++;
 			}
-			echo '<br>';
+			echo '</tr>';
 		}
+		$resultat = $requete->fetch();
 	}
+	echo '</table>';
 }
 ?>
 </div>
