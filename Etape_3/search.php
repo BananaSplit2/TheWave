@@ -89,10 +89,10 @@ if (isset($type)) {
 		
 		$requeteTexte = "SELECT DISTINCT idg, nomg, datecrea, nationg, genre
 						FROM groupe NATURAL JOIN membre NATURAL JOIN artiste
-						WHERE nomg LIKE '%' || :nomg || '%'
-						AND genre LIKE '%' || :genre || '%'
-						AND ((noma LIKE '%' || :artiste || '%' OR prenom LIKE '%' || :artiste || '%')
-						OR (:artiste LIKE '%' || noma || '%' AND :artiste LIKE '%' || prenom || '%'))
+						WHERE nomg ILIKE '%' || :nomg || '%'
+						AND genre ILIKE '%' || :genre || '%'
+						AND ((noma ILIKE '%' || :artiste || '%' OR prenom ILIKE '%' || :artiste || '%')
+						OR (:artiste ILIKE '%' || noma || '%' AND :artiste ILIKE '%' || prenom || '%'))
 						ORDER BY nomg;";
 		$requete = $db->prepare($requeteTexte);
 		$requete->bindParam(':nomg', $titre);
@@ -109,10 +109,10 @@ if (isset($type)) {
 						LEFT JOIN groupe ON groupe.idg = morceau.idg
 						LEFT JOIN participe ON morceau.idmo = participe.idmo
 						LEFT JOIN artiste ON participe.ida = artiste.ida
-						WHERE titrem LIKE '%' || :titre || '%'
-						AND genre LIKE '%' || :genre || '%'
-						AND ((noma LIKE '%' || :artiste || '%' OR prenom LIKE '%' || :artiste || '%')
-						OR (:artiste LIKE '%' || noma || '%' AND :artiste LIKE '%' || prenom || '%')
+						WHERE titrem ILIKE '%' || :titre || '%'
+						AND genre ILIKE '%' || :genre || '%'
+						AND ((noma ILIKE '%' || :artiste || '%' OR prenom ILIKE '%' || :artiste || '%')
+						OR (:artiste ILIKE '%' || noma || '%' AND :artiste ILIKE '%' || prenom || '%')
 						OR (noma IS NULL AND prenom IS NULL AND :artiste = ''))
 						ORDER BY titrem;";
 		$requete = $db->prepare($requeteTexte);
@@ -134,10 +134,10 @@ if (isset($type)) {
 						LEFT JOIN groupe ON groupe.idg = album.idg
 						LEFT JOIN participe ON morceau.idmo = participe.idmo
 						LEFT JOIN artiste ON participe.ida = artiste.ida
-						WHERE titrea LIKE '%' || :titre || '%'
-						AND genre LIKE '%' || :genre || '%'
-						AND ((noma LIKE '%' || :artiste || '%' OR prenom LIKE '%' || :artiste || '%')
-						OR (:artiste LIKE '%' || noma || '%' AND :artiste LIKE '%' || prenom || '%')
+						WHERE titrea ILIKE '%' || :titre || '%'
+						AND genre ILIKE '%' || :genre || '%'
+						AND ((noma ILIKE '%' || :artiste || '%' OR prenom ILIKE '%' || :artiste || '%')
+						OR (:artiste ILIKE '%' || noma || '%' AND :artiste ILIKE '%' || prenom || '%')
 						OR (noma IS NULL AND prenom IS NULL AND :artiste = ''))
 						ORDER BY depuis DESC
 						) AS tab1
@@ -153,10 +153,10 @@ if (isset($type)) {
 						LEFT JOIN groupe ON groupe.idg = album.idg
 						LEFT JOIN participe ON morceau.idmo = participe.idmo
 						LEFT JOIN artiste ON participe.ida = artiste.ida
-						WHERE titrea LIKE '%' || :titre || '%'
-						AND genre LIKE '%' || :genre || '%'
-						AND ((noma LIKE '%' || :artiste || '%' OR prenom LIKE '%' || :artiste || '%')
-						OR (:artiste LIKE '%' || noma || '%' AND :artiste LIKE '%' || prenom || '%')
+						WHERE titrea ILIKE '%' || :titre || '%'
+						AND genre ILIKE '%' || :genre || '%'
+						AND ((noma ILIKE '%' || :artiste || '%' OR prenom ILIKE '%' || :artiste || '%')
+						OR (:artiste ILIKE '%' || noma || '%' AND :artiste ILIKE '%' || prenom || '%')
 						OR (noma IS NULL AND prenom IS NULL AND :artiste = ''))
 						ORDER BY dateparu DESC;";
 			$requete = $db->prepare($requeteTexte);
@@ -177,10 +177,10 @@ if (isset($type)) {
 						LEFT JOIN groupe ON groupe.idg = morceau.idg
 						LEFT JOIN participe ON morceau.idmo = participe.idmo
 						LEFT JOIN artiste ON participe.ida = artiste.ida
-						WHERE titre LIKE '%' || :titre || '%'
-						AND genre LIKE '%' || :genre || '%'
-						AND ((noma LIKE '%' || :artiste || '%' OR prenom LIKE '%' || :artiste || '%')
-						OR (:artiste LIKE '%' || noma || '%' AND :artiste LIKE '%' || prenom || '%')
+						WHERE titre ILIKE '%' || :titre || '%'
+						AND genre ILIKE '%' || :genre || '%'
+						AND ((noma ILIKE '%' || :artiste || '%' OR prenom ILIKE '%' || :artiste || '%')
+						OR (:artiste ILIKE '%' || noma || '%' AND :artiste ILIKE '%' || prenom || '%')
 						OR (noma IS NULL AND prenom IS NULL AND :artiste = ''))
 						ORDER BY titre DESC;";
 		$requete = $db->prepare($requeteTexte);
