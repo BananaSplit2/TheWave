@@ -45,23 +45,23 @@ else {
             <h3>Informations sur l'album</h3>
             <table class="table table-sm">
                 <tr class="table-primary">
-                    <td>Titre</td>
+                    <th>Titre</th>
                     <td><?php echo $album['titrea']; ?></td>
                 </tr>
                 <tr>
-                    <td>Groupe</td>
+                    <th>Groupe</th>
                     <td><?php echo '<a href="groupe.php?idg='. $album['idg'] .'">'. $album['nomg'] .'</a>'; ?></td>
                 </tr>
                 <tr>
-                    <td>Genre</td>
+                    <th>Genre</th>
                     <td><?php echo ucwords($album['genre']) ?></td>
                 </tr>
                 <tr>
-                    <td>Date de parution</td>
+                    <th>Date de parution</th>
                     <td><?php echo $album['dateparu']; ?></td>
                 </tr>
                 <tr>
-                    <td>Description</td>
+                    <th>Description</th>
                     <td><?php echo $album['desca']; ?></td>
                 </tr>
             </table>

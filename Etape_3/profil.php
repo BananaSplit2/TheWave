@@ -4,12 +4,39 @@ session_regenerate_id();
 require("inc/checkauth.inc.php");
 require("inc/connexiondb.inc.php");
 require("inc/header.inc.php");
+
+$utilisateurquery = $db->prepare("SELECT email, dateinsc FROM utilisateur WHERE pseudo = :pseudo");
+$utilisateurquery->bindParam(":pseudo", $_SESSION['pseudo']);
+$utilisateurquery->execute();
+$utilisateur = $utilisateurquery->fetch();
+
+$followersquery = $db->prepare("SELECT count(*) FROM suitutilisateur WHERE suivi = :pseudo");
+$followersquery->bindParam(":pseudo", $_SESSION['pseudo']);
+$followersquery->execute();
+$followers = $followersquery->fetchColumn();
+
+$followingquery = $db->prepare("SELECT count(*) FROM suitutilisateur WHERE suit = :pseudo");
+$followingquery->bindParam(":pseudo", $_SESSION['pseudo']);
+$followingquery->execute();
+$following = $followingquery->fetchColumn();
 ?>
 
 <main class="container">
     <div class="row my-4">
         <div class="col">
             <h1>Page de profil</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h4>Informations personnelles</h4>
+            <table class="table table-sm table-striped">
+                <tr><th>Pseudo</th><td><?php echo $_SESSION['pseudo'] ?></td></tr>
+                <tr><th>Email</th><td><?php echo $utilisateur['email'] ?></td></tr>
+                <tr><th>Date d'inscription</th><td><?php echo $utilisateur['dateinsc'] ?></td></tr>
+                <tr><th>Nombre d'utilisateurs suivant</th><td><?php echo $followers ?></td></tr>
+                <tr><th>Nombre d'utilisateurs suivis</th><td><?php echo $following ?></td></tr>
+            </table>
         </div>
     </div>
     <div class="row">
@@ -55,8 +82,8 @@ require("inc/header.inc.php");
     <div class="row">
         <div class="col-6">
             <h4>Activité des comptes suivis</h4>
-            <table class="table table-sm table-sI witriped">
-                <tr><th>Playlist</th><th>Utilisateur</th><th>Date de dernière modification</th></tr>
+            <table class="table table-sm table-striped">
+                <tr><th>Playlist</th><th>Utilisateur</th><th>Dernière modification</th></tr>
                 <?php
                 $playlists = $db->prepare("SELECT idp, titre, pseudo, datemodif FROM playlist
                                                     WHERE pseudo IN (

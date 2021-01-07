@@ -73,23 +73,23 @@ else {
             <h3>Informations sur le groupe</h3>
             <table class="table table-sm">
                 <tr class="table-primary">
-                    <td>Nom</td>
+                    <th>Nom</th>
                     <td><?php echo $groupe['nomg']; ?></td>
                 </tr>
                 <tr>
-                    <td>Nationalité</td>
+                    <th>Nationalité</th>
                     <td><?php echo $groupe['nationg']; ?></td>
                 </tr>
                 <tr>
-                    <td>Date de formation</td>
+                    <th>Date de formation</th>
                     <td><?php echo $groupe['datecrea']; ?></td>
                 </tr>
                 <tr>
-                    <td>Genre</td>
+                    <th>Genre</th>
                     <td><?php echo ucwords($groupe['genre']) ?></td>
                 </tr>
                 <tr>
-                    <td>Membres actuels</td>
+                    <th>Membres actuels</th>
                     <td>
                         <ul>
                         <?php
@@ -101,7 +101,7 @@ else {
                     </td>
                 </tr>
                 <tr>
-                    <td>Nombre d'utilisateurs suivant le groupe</td>
+                    <th>Nombre d'utilisateurs suivant le groupe</th>
                     <td><?php echo $followers ?></td>
                 </tr>
             </table>

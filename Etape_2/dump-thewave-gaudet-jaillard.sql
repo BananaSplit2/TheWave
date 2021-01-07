@@ -59,7 +59,8 @@ CREATE TABLE playlist (
 	titre varchar(50) NOT NULL,
 	descP text,
 	privee boolean NOT NULL,
-	pseudo varchar(50) NOT NULL REFERENCES utilisateur ON DELETE CASCADE ON UPDATE CASCADE
+	pseudo varchar(50) NOT NULL REFERENCES utilisateur ON DELETE CASCADE ON UPDATE CASCADE,
+	datemodif timestamp NOT NULL
 );
 
 CREATE TABLE participe (
@@ -98,9 +99,9 @@ CREATE TABLE suitUtilisateur (
 
 CREATE TABLE historique (
 	pseudo varchar(50) REFERENCES utilisateur ON DELETE CASCADE ON UPDATE CASCADE,
-	idMo int REFERENCES morceau ON DELETE CASCADE ON UPDATE CASCADE,
+	idMo int REFERENCES morceau ON DELETE SET NULL ON UPDATE SET NULL,
 	dateHeure timestamp,
-	CONSTRAINT historique_PK PRIMARY KEY (pseudo, idMo, dateHeure)
+	CONSTRAINT historique_PK PRIMARY KEY (pseudo, dateHeure)
 );
 
 /*---------------Pour-meubler-----------------*/
@@ -218,7 +219,7 @@ INSERT INTO membre VALUES (42, 'batteur', '2010-01-01', '2011-02-01', 34, 4);
 
 INSERT INTO membre VALUES (44, 'chanteuse', '1956-10-28', '1987-05-03', 38, 5);
 
-ALTER SEQUENCE membre_idme_seq RESTART WITH 44;
+ALTER SEQUENCE membre_idme_seq RESTART WITH 45;
 
 /* morceaux */
 INSERT INTO morceau VALUES (1, 'We wish you a merry christmas', '00:05:31', 'www.wish-you.com/merry_christmas/lyrics', 'www.wish-you.com/merry_christmas/audio', 2);
@@ -506,9 +507,9 @@ INSERT INTO participe VALUES (38, 42);
 
 /* playlist */
 
-INSERT INTO playlist VALUES (1, 'du bon son métal', 'les morceaux que j''adore', false, 'JeanKevin69');
-INSERT INTO playlist VALUES (2, 'ma playlist perso', NULL, true, 'CpasGrave');
-INSERT INTO playlist VALUES (3, 'dalida, en veux tu en voila', 'c''était la bonne époque....', false, 'mamiedu77');
+INSERT INTO playlist VALUES (1, 'du bon son métal', 'les morceaux que j''adore', false, 'JeanKevin69', '2021-01-01 01:00:00');
+INSERT INTO playlist VALUES (2, 'ma playlist perso', NULL, true, 'CpasGrave', '2020-09-28 13:25:00');
+INSERT INTO playlist VALUES (3, 'dalida, en veux tu en voila', 'c''était la bonne époque....', false, 'mamiedu77', '2021-01-05 18:48:59');
 
 /* playlistContient */
 
@@ -546,7 +547,9 @@ INSERT INTO playlistContient VALUES (3, 33, 13);
 INSERT INTO suitGroupe VALUES ('JeanKevin69', 3);
 INSERT INTO suitGroupe VALUES ('JeanKevin69', 4);
 INSERT INTO suitGroupe VALUES ('Galineras', 2);
+INSERT INTO suitGroupe VALUES ('Galineras', 3);
 INSERT INTO suitGroupe VALUES ('CpasGrave', 1);
+INSERT INTO suitGroupe VALUES ('CpasGrave', 3);
 
 /* suitUtilisateur */
 INSERT INTO suitUtilisateur VALUES ('BananaSplit', 'Galineras');
@@ -566,3 +569,19 @@ INSERT INTO historique VALUES ('Galineras', 3, '2020-11-27 13:59:59');
 INSERT INTO historique VALUES ('mamiedu77', 33, '2020-12-25 15:23:23');
 INSERT INTO historique VALUES ('mamiedu77', 33, '2020-12-25 15:26:47');
 INSERT INTO historique VALUES ('mamiedu77', 33, '2020-12-25 15:32:25');
+INSERT INTO historique VALUES ('CpasGrave', 6, '2021-01-01 09:22:17');
+INSERT INTO historique VALUES ('CpasGrave', 7, '2021-01-01 10:58:15');
+INSERT INTO historique VALUES ('CpasGrave', 22, '2021-01-02 18:23:18');
+INSERT INTO historique VALUES ('CpasGrave', 22, '2021-01-02 18:25:54');
+INSERT INTO historique VALUES ('CpasGrave', 23, '2021-01-02 18:28:02');
+INSERT INTO historique VALUES ('CpasGrave', 28, '2021-01-02 18:32:32');
+INSERT INTO historique VALUES ('CpasGrave', 30, '2021-01-03 07:58:27');
+INSERT INTO historique VALUES ('CpasGrave', 31, '2021-01-03 08:00:01');
+INSERT INTO historique VALUES ('CpasGrave', 12, '2021-01-03 08:02:57');
+INSERT INTO historique VALUES ('CpasGrave', 15, '2021-01-05 22:07:05');
+INSERT INTO historique VALUES ('CpasGrave', 31, '2021-01-05 22:13:13');
+INSERT INTO historique VALUES ('CpasGrave', 12, '2021-01-05 23:59:00');
+INSERT INTO historique VALUES ('CpasGrave', 31, '2021-01-07 02:21:53');
+INSERT INTO historique VALUES ('CpasGrave', 38, '2021-01-07 03:00:59');
+INSERT INTO historique VALUES ('CpasGrave', NULL, '2021-01-07 03:02:28');
+INSERT INTO historique VALUES ('CpasGrave', 31, '2021-01-07 08:27:09');

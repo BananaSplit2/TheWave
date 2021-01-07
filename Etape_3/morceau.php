@@ -62,23 +62,23 @@ else {
             <h3>Informations sur le morceau</h3>
             <table class="table table-sm">
                 <tr class="table-primary">
-                    <td>Titre</td>
+                    <th>Titre</th>
                     <td><?php echo $morceau['titrem']; ?></td>
                 </tr>
                 <tr>
-                    <td>Groupe</td>
+                    <th>Groupe</th>
                     <td><?php echo '<a href="groupe.php?idg=' . $morceau['idg'] . '">' . $morceau['nomg'] . '</a>'; ?></td>
                 </tr>
                 <tr>
-                    <td>Genre</td>
+                    <th>Genre</th>
                     <td><?php echo ucwords($morceau['genre']); ?></td>
                 </tr>
                 <tr>
-                    <td>Album</td>
+                    <th>Album</th>
                     <td><?php echo '<a href="album.php?idal=' . $morceau['idal'] . '">' . $morceau['titrea'] . '</a>'; ?></td>
                 </tr>
                 <tr>
-                    <td>Durée</td>
+                    <th>Durée</th>
                     <td><?php echo $morceau['duree']; ?></td>
                 </tr>
             </table>
