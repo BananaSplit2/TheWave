@@ -22,8 +22,8 @@
             <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'search.php') {echo 'active';} ?>">
                 <a class="nav-link" href="search.php">Recherche</a>
             </li>
-            <li class="nav-item" <?php if (basename($_SERVER['PHP_SELF']) == 'suggestions.php') {echo 'active';} ?>>
-                <a class="nav-link" href="#">Suggestions</a>
+            <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'suggestions.php') {echo 'active';}?>">
+                <a class="nav-link" href="suggestions.php">Suggestions</a>
             </li>
         </ul>
 
