@@ -12,7 +12,7 @@ require("inc/header.inc.php");
                 <h1>Création de playlist</h1>
             </div>
         </div>
-        <div clas="row">
+        <div class="row">
             <form method="post" action="creeplaylist.php">
                 <div class="form-group">
                     <label for="titre">Titre</label>
@@ -28,7 +28,7 @@ require("inc/header.inc.php");
                 </div>
                 <div class="form-group">
                     <input class="form-check-input" type="radio" name="prive" id="privenon" value="false">
-                    <label class="form-check-label" for="priveoui">Publique</label>
+                    <label class="form-check-label" for="privenon">Publique</label>
                 </div>
                 <button type="submit" class="btn btn-primary">Créer</button>
             </form>
