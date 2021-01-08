@@ -153,7 +153,10 @@ $following = $followingquery->fetchColumn();
             </table>
         </div>
     </div>
-    <div class="row py-4">
+    <div class="row py-2">
+        <a href="creeplaylistform.php" class="btn btn-primary">Créer une playlist</a>
+    </div>
+    <div class="row py-2">
         <div class="col">
             <a href="logout.php" class="btn btn-danger">Se déconnecter</a>
         </div>
