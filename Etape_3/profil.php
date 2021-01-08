@@ -147,7 +147,7 @@ $following = $followingquery->fetchColumn();
                         $access = "Privée";
                     }
                     echo '<tr><td><a href="playlist.php?idp='. $playlist['idp'] .'">'. $playlist['titre'] .'</a></td><td>'. $access .'</td><td>'. $playlist['datemodif'] .'</td>';
-                    echo '<td><a href="" class="btn btn-primary btn-sm">Editer</a></td></tr>';
+                    echo '<td><a href="editplaylist.php?idp='. $playlist['idp'] .'" class="btn btn-primary btn-sm">Editer</a></td></tr>';
                 }
                 ?>
             </table>

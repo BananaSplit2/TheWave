@@ -48,36 +48,31 @@ else {
                 <h1><?php echo $playlist['titre']; ?></h1>
             </div>
         </div>
-        <div class="row align-items-center">
-            <div class="col-9">
-                <h3>Informations sur la playlist</h3>
-                <table class="table table-sm">
-                    <tr class="table-primary">
-                        <th>Titre</th>
-                        <td><?php echo $playlist['titre']; ?></td>
-                    </tr>
-                    <tr>
-                        <th>Créateur</th>
-                        <td><?php echo '<a href="utilisateur.php?pseudo='. $playlist['pseudo'] .'">'. $playlist['pseudo'] .'</a>'; ?></td>
-                    </tr>
-                    <tr>
-                        <th>Dernière modification</th>
-                        <td><?php echo $playlist['datemodif']; ?></td>
-                    </tr>
-                    <tr>
-                        <th>Description</th>
-                        <td><?php echo $playlist['descp']; ?></td>
-                    </tr>
-                </table>
+        <div class="row my-4">
+            <div class="col">
+                <h3>Modifier les informations</h3>
+                <form method="post" action="modifplaylist.php">
+                    <input type="hidden" name="idp" value="<?php echo $_GET['idp'] ?>">
+                    <div class="form-group">
+                        <label for="titre">Titre</label>
+                        <input type="text" maxlength="50" class="form-control" name="titre" id="titre" value="<?php echo $playlist['titre'] ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="desc">Description</label>
+                        <textarea class="form-control" name="desc" id="desc" placeholder="Description" rows="5"><?php echo $playlist['descp']?></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-check-input" type="radio" name="prive" id="priveoui" value="true" <?php if ($playlist['privee'] == true) echo "checked" ?>>
+                        <label class="form-check-label" for="priveoui">Privée</label>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-check-input" type="radio" name="prive" id="privenon" value="false" <?php if ($playlist['privee'] == false) echo "checked" ?>>
+                        <label class="form-check-label" for="privenon">Publique</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Modifier</button>
+                </form>
+
             </div>
-            <?php
-            if (count($morceaux) > 0)
-            {
-            echo '<div class="col-3 text-center">
-                <a href="player.php?idmo='.$morceaux[0]['idmo'].'&idp='.$playlist['idp'] .'&num=1" class="btn btn-primary btn-lg">Ecouter</a>
-            </div>';
-            }
-            ?>
         </div>
         <div class="row">
             <div class="col">
@@ -105,9 +100,22 @@ else {
                 else {
                     echo '<small class="text-muted">Playlist vide</small>';
                 }
-
-
                 ?>
+                <form method="post" action="ajoutmorceau.php">
+                    <input type="hidden" name="idp" value="<?php echo $_GET['idp'] ?>">
+                    <input type="hidden" name="num" value="<?php echo (count($morceaux) + 1) ?>">
+                    <div class="form-group">
+                        <label for="idmo">ID morceau</label>
+                        <input type="number" class="form-control" name="idmo" id="idmo">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ajouter morceau</button>
+                </form>
+            </div>
+        </div>
+        <div class="row my-4">
+            <div class="col">
+                <h3>Suppression</h3>
+                <a href="delplaylist.php?idp=<?php echo $playlist['idp']?>" class="btn btn-danger">Supprimer la playlist</a>
             </div>
         </div>
     </main>
