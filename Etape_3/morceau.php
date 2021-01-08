@@ -57,8 +57,8 @@ else {
             <h1><?php echo $morceau['titrem']; ?></h1>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
+    <div class="row align-items-center">
+        <div class="col-10">
             <h3>Informations sur le morceau</h3>
             <table class="table table-sm">
                 <tr class="table-primary">
@@ -82,6 +82,9 @@ else {
                     <td><?php echo $morceau['duree']; ?></td>
                 </tr>
             </table>
+        </div>
+        <div class="col-2 text-center">
+            <a href="player.php?idmo=<?php echo $morceau['idmo'] ?>" class="btn btn-primary btn-lg">Ecouter</a>
         </div>
     </div>
     <div class="row">

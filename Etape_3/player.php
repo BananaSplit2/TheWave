@@ -203,7 +203,7 @@ else {
 $historique = $db->prepare("INSERT INTO historique VALUES (:pseudo, :idmo, :dtime);");
 $historique->bindParam(':pseudo', $_SESSION['pseudo']);
 $historique->bindParam(':idmo', $_GET['idmo']);
-$historique->bindParam(':dtime', date("Y-m-d H:i:s"));
+$historique->bindValue(':dtime', date("Y-m-d H:i:s"));
 $historique->execute();
 
 require("inc/footer.inc.php");

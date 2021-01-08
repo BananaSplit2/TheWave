@@ -28,9 +28,11 @@ else {
         die();
     }
 
-    $morceaux = $db->prepare("SELECT idmo, titrem, duree, num FROM morceau NATURAL JOIN albumcontient WHERE idal=:idal ORDER BY num;");
-    $morceaux->bindParam(':idal', $_GET['idal']);
-    $morceaux->execute();
+    $morceauxquery = $db->prepare("SELECT idmo, titrem, duree, num FROM morceau NATURAL JOIN albumcontient WHERE idal=:idal ORDER BY num;");
+    $morceauxquery->bindParam(':idal', $_GET['idal']);
+    $morceauxquery->execute();
+
+    $morceaux = $morceauxquery->fetchAll();
 }
 ?>
 
@@ -78,6 +80,11 @@ else {
             ?>
         </div>
     </div>
+    <div class="row my-2">
+        <div class="col text-center">
+            <a href="player.php?idmo=<?php echo $morceaux[0]['idmo'] ?>&idal=<?php echo $album['idal'] ?>" class="btn btn-primary btn-lg">Ecouter</a>
+        </div>
+    </div>
     <div class="row">
         <h3>Morceaux</h3>
         <table class="table table-sm table-striped">
@@ -95,7 +102,6 @@ else {
                 echo '<td><a href="morceau.php?idmo=' . $morceau['idmo'] . '">' . $morceau['titrem'] . '</a></td>';
                 echo '<td>' . $duree[1] . ':' . $duree[2] . '</td>';
             }
-            $morceaux->closeCursor();
             ?>
         </table>
     </div>
