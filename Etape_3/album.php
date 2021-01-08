@@ -82,7 +82,7 @@ else {
     </div>
     <div class="row my-2">
         <div class="col text-center">
-            <a href="player.php?idmo=<?php echo $morceaux[0]['idmo'] ?>&idal=<?php echo $album['idal'] ?>" class="btn btn-primary btn-lg">Ecouter</a>
+            <a href="player.php?idmo=<?php echo $morceaux[0]['idmo'] ?>&idal=<?php echo $album['idal'] ?>&num=1" class="btn btn-primary btn-lg">Ecouter</a>
         </div>
     </div>
     <div class="row">

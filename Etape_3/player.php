@@ -103,10 +103,10 @@ else {
 					$requeteSui->closeCursor();
 					
 					if($prec != FALSE)
-						echo'<a href="player.php?idmo=' . $prec['idmo'] . '&idal='.$morceau['idal']. '&num='.$_GET['num']-1 .'">PREC</a>';
+						echo'<a href="player.php?idmo=' . $prec['idmo'] . '&idal='.$morceau['idal']. '&num='. ($_GET['num']-1) .'">PREC</a>';
 					echo '/';
 					if($suiv != FALSE)
-						echo '<a href="player.php?idmo=' . $suiv['idmo'] . '&idal='.$morceau['idal']. '&num='.$_GET['num']+1 .'">SUIV</a>';
+						echo '<a href="player.php?idmo=' . $suiv['idmo'] . '&idal='.$morceau['idal']. '&num='. ($_GET['num']+1) .'">SUIV</a>';
 					echo '
 					</td>
 					<td>
@@ -145,10 +145,10 @@ else {
 					$requeteSui->closeCursor();
 					
 					if ($prec != FALSE)
-						echo '<a href="player.php?idmo=' . $prec['idmo'] . '&idp='.$morceau['idp']. '&num='.$_GET['num']-1 .'">PREC</a>';
+						echo '<a href="player.php?idmo=' . $prec['idmo'] . '&idp='.$morceau['idp']. '&num='. ($_GET['num']-1) .'">PREC</a>';
 					echo'/';
 					if ($suiv != FALSE)
-						echo '<a href="player.php?idmo=' . $suiv['idmo'] . '&idp='.$morceau['idp']. '&num='.$_GET['num']+1 .'">SUIV</a>';
+						echo '<a href="player.php?idmo=' . $suiv['idmo'] . '&idp='.$morceau['idp']. '&num='. ($_GET['num']+1) .'">SUIV</a>';
 					echo '
 					</td>
 					<td>

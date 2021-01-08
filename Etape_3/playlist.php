@@ -74,7 +74,7 @@ else {
             if (count($morceaux) > 0)
             {
             echo '<div class="col-3 text-center">
-                <a href="player.php?idmo='.$morceaux[0]['idmo'].'&idp='.$playlist['idp'] .'" class="btn btn-primary btn-lg">Ecouter</a>
+                <a href="player.php?idmo='.$morceaux[0]['idmo'].'&idp='.$playlist['idp'] .'&num=1" class="btn btn-primary btn-lg">Ecouter</a>
             </div>';
             }
             ?>
