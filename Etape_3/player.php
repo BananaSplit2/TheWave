@@ -14,7 +14,7 @@ if (!isset($_GET['idmo'])) {
 }
 else {
 	
-	if (isset($_GET['idal'])) {
+	if (isset($_GET['idal']) && isset($_GET['num'])) {
 		$requete = $db->prepare("SELECT * FROM morceau NATURAL JOIN groupe NATURAL LEFT JOIN albumContient NATURAL LEFT JOIN album 
 										WHERE (idmo=:idmo AND idal=:idal) ORDER BY dateParu;");
 		$requete->bindParam(':idmo', $_GET['idmo']);
@@ -24,7 +24,7 @@ else {
 		$morceau = $requete->fetch();
 		$requete->closeCursor();
 	}
-	elseif (isset($_GET['idp'])) {
+	elseif (isset($_GET['idp']) && isset($_GET['num'])) {
 		$requete = $db->prepare("SELECT * FROM morceau NATURAL JOIN groupe NATURAL LEFT JOIN playlistContient NATURAL LEFT JOIN playlist 
 										WHERE (idmo=:idmo AND idp=:idp);");
 		$requete->bindParam(':idmo', $_GET['idmo']);
@@ -84,16 +84,9 @@ else {
                     $reqTot->execute();
 					$tot = $reqTot->fetch();
 					$reqTot->closeCursor();
-                    /* num actuel */
-                    $reqNum = $db->prepare("SELECT num FROM albumContient WHERE (idal=:idal AND idmo=:idmo)");
-                    $reqNum->bindParam(':idmo', $_GET['idmo']);
-                    $reqNum->bindParam(':idal', $_GET['idal']);
-                    $reqNum->execute();
-					$num = $reqNum->fetch();
-					$reqNum->closeCursor();
                     /* précédent */
                     $requetePre = $db->prepare("SELECT * FROM albumContient WHERE (idal=:idal AND num=:num-1);");
-					$requetePre->bindParam(':num', $num['num']);
+					$requetePre->bindParam(':num', $_GET['num']);
 					$requetePre->bindParam(':idal', $_GET['idal']);
 
 					$requetePre->execute();
@@ -103,21 +96,21 @@ else {
 					/* suivant */
 					$requeteSui = $db->prepare("SELECT * FROM albumContient WHERE (idal=:idal AND num=:num+1);");
 					$requeteSui->bindParam(':idal', $_GET['idal']);
-					$requeteSui->bindParam(':num', $num['num']);
+					$requeteSui->bindParam(':num', $_GET['num']);
 
 					$requeteSui->execute();
 					$suiv = $requeteSui->fetch();
 					$requeteSui->closeCursor();
 					
 					if($prec != FALSE)
-						echo'<a href="player.php?idmo=' . $prec['idmo'] . '&idal='.$morceau['idal'].'">PREC</a>';
+						echo'<a href="player.php?idmo=' . $prec['idmo'] . '&idal='.$morceau['idal']. '&num='.$_GET['num']-1 .'">PREC</a>';
 					echo '/';
 					if($suiv != FALSE)
-						echo '<a href="player.php?idmo=' . $suiv['idmo'] . '&idal='.$morceau['idal'].'">SUIV</a>';
+						echo '<a href="player.php?idmo=' . $suiv['idmo'] . '&idal='.$morceau['idal']. '&num='.$_GET['num']+1 .'">SUIV</a>';
 					echo '
 					</td>
 					<td>
-					' . $num['num'] . '/' . $tot['tot'] . '
+					' . $_GET['num'] . '/' . $tot['tot'] . '
 					</td>
                 </tr>';
 				}
@@ -133,23 +126,9 @@ else {
                     $reqTot->execute();
 					$tot = $reqTot->fetch();
 					$reqTot->closeCursor();
-                    /* num actuel */
-                    $reqNum = $db->prepare("SELECT num FROM playlistContient WHERE (idp=:idp AND idmo=:idmo)");
-                    $reqNum->bindParam(':idmo', $_GET['idmo']);
-                    $reqNum->bindParam(':idp', $_GET['idp']);
-                    $reqNum->execute();
-					$num = $reqNum->fetch();
-					$reqNum->closeCursor();
-                    /* num actuel */
-                    $reqNum = $db->prepare("SELECT num FROM playlistContient WHERE (idp=:idp AND idmo=:idmo)");
-                    $reqNum->bindParam(':idmo', $_GET['idmo']);
-                    $reqNum->bindParam(':idp', $_GET['idp']);
-                    $reqNum->execute();
-					$num = $reqNum->fetch();
-					$reqNum->closeCursor();
                     /* précédent */
                     $requetePre = $db->prepare("SELECT * FROM playlistContient WHERE (idp=:idp AND num=:num-1);");
-					$requetePre->bindParam(':num', $num['num']);
+					$requetePre->bindParam(':num', $_GET['num']);
 					$requetePre->bindParam(':idp', $_GET['idp']);
 
 					$requetePre->execute();
@@ -159,21 +138,21 @@ else {
 					/* suivant */
 					$requeteSui = $db->prepare("SELECT * FROM playlistContient WHERE (idp=:idp AND num=:num+1);");
 					$requeteSui->bindParam(':idp', $_GET['idp']);
-					$requeteSui->bindParam(':num', $num['num']);
+					$requeteSui->bindParam(':num', $_GET['num']);
 
 					$requeteSui->execute();
 					$suiv = $requeteSui->fetch();
 					$requeteSui->closeCursor();
 					
 					if ($prec != FALSE)
-						echo '<a href="player.php?idmo=' . $prec['idmo'] . '&idp='.$morceau['idp'].'">PREC</a>';
+						echo '<a href="player.php?idmo=' . $prec['idmo'] . '&idp='.$morceau['idp']. '&num='.$_GET['num']-1 .'">PREC</a>';
 					echo'/';
 					if ($suiv != FALSE)
-						echo '<a href="player.php?idmo=' . $suiv['idmo'] . '&idp='.$morceau['idp'].'">SUIV</a>';
+						echo '<a href="player.php?idmo=' . $suiv['idmo'] . '&idp='.$morceau['idp']. '&num='.$_GET['num']+1 .'">SUIV</a>';
 					echo '
 					</td>
 					<td>
-					' . $num['num'] . '/' . $tot['tot'] . '
+					' . $_GET['num'] . '/' . $tot['tot'] . '
 					</td>
                 </tr>';
 				}
