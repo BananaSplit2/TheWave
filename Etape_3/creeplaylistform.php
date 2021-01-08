@@ -13,25 +13,27 @@ require("inc/header.inc.php");
             </div>
         </div>
         <div class="row">
-            <form method="post" action="creeplaylist.php">
-                <div class="form-group">
-                    <label for="titre">Titre</label>
-                    <input type="text" maxlength="50" class="form-control" name="titre" id="titre" placeholder="Titre">
-                </div>
-                <div class="form-group">
-                    <label for="desc">Description</label>
-                    <textarea class="form-control" name="desc" id="desc" placeholder="Description" rows="5"></textarea>
-                </div>
-                <div class="form-group">
-                    <input class="form-check-input" type="radio" name="prive" id="priveoui" value="true" checked>
-                    <label class="form-check-label" for="priveoui">Privée</label>
-                </div>
-                <div class="form-group">
-                    <input class="form-check-input" type="radio" name="prive" id="privenon" value="false">
-                    <label class="form-check-label" for="privenon">Publique</label>
-                </div>
-                <button type="submit" class="btn btn-primary">Créer</button>
-            </form>
+            <div class="col">
+                <form method="post" action="creeplaylist.php">
+                    <div class="form-group">
+                        <label for="titre">Titre</label>
+                        <input type="text" maxlength="50" class="form-control" name="titre" id="titre" placeholder="Titre">
+                    </div>
+                    <div class="form-group">
+                        <label for="desc">Description</label>
+                        <textarea class="form-control" name="desc" id="desc" placeholder="Description" rows="5"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-check-input" type="radio" name="prive" id="priveoui" value="true" checked>
+                        <label class="form-check-label" for="priveoui">Privée</label>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-check-input" type="radio" name="prive" id="privenon" value="false">
+                        <label class="form-check-label" for="privenon">Publique</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Créer</button>
+                </form>
+            </div>
         </div>
 
     </main>
