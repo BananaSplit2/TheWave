@@ -107,6 +107,24 @@ else {
             </table>
     </div>
     <div class="row">
+        <div class="col">
+            <?php
+                $requete = $db->prepare("SELECT * FROM suitgroupe WHERE pseudo = :pseudo AND idg = :idg");
+                $requete->bindParam(":pseudo", $_SESSION['pseudo']);
+                $requete->bindParam(":idg", $groupe['idg']);
+                $requete->execute();
+
+                if ($requete->rowCount() > 0) {
+
+                }
+                else {
+
+                }
+            ?>
+            <a href="player.php?idmo=<?php echo $morceau['idmo'] ?>" class="btn btn-primary btn-lg">Ecouter</a>
+        </div>
+    </div>
+    <div class="row">
         <h3>Liste des membres</h3>
         <table class="table table-sm table-striped">
             <thead>
