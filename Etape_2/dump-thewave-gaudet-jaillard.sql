@@ -511,6 +511,8 @@ INSERT INTO playlist VALUES (1, 'du bon son métal', 'les morceaux que j''adore'
 INSERT INTO playlist VALUES (2, 'ma playlist perso', NULL, true, 'CpasGrave', '2020-09-28 13:25:00');
 INSERT INTO playlist VALUES (3, 'dalida, en veux tu en voila', 'c''était la bonne époque....', false, 'mamiedu77', '2021-01-05 18:48:59');
 
+ALTER SEQUENCE playlist_idp_seq RESTART WITH 4;
+
 /* playlistContient */
 
 INSERT INTO playlistContient VALUES (1, 16, 1);
