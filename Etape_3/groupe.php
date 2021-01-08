@@ -106,22 +106,21 @@ else {
                 </tr>
             </table>
     </div>
-    <div class="row">
+    <div class="row my-4">
         <div class="col">
             <?php
                 $requete = $db->prepare("SELECT * FROM suitgroupe WHERE pseudo = :pseudo AND idg = :idg");
                 $requete->bindParam(":pseudo", $_SESSION['pseudo']);
-                $requete->bindParam(":idg", $groupe['idg']);
+                $requete->bindParam(":idg", $_GET['idg']);
                 $requete->execute();
 
                 if ($requete->rowCount() > 0) {
-
+                    echo '<a href="follow.php?idg=' . $groupe['idg'] .'&flw=true&location='. urlencode($_SERVER['REQUEST_URI']) .'" class="btn btn-primary btn-lg">Ne plus suivre</a>';
                 }
                 else {
-
+                    echo '<a href="follow.php?idg=' . $groupe['idg'] .'&flw=false&location='. urlencode($_SERVER['REQUEST_URI']) .'" class="btn btn-primary btn-lg">Suivre</a>';
                 }
             ?>
-            <a href="player.php?idmo=<?php echo $morceau['idmo'] ?>" class="btn btn-primary btn-lg">Ecouter</a>
         </div>
     </div>
     <div class="row">

@@ -46,7 +46,7 @@ if (isset($_GET['pseudo'])) {
 		die();
 	}
 	
-	if($_GET['flw']) {
+	if($_GET['flw'] == "true") {
 		$requete = $db->prepare("DELETE FROM suitUtilisateur WHERE suit=:suit AND suivi=:suivi;");
 		$requete->bindParam(':suit', $_SESSION['pseudo']);
 		$requete->bindParam(':suivi', $_GET['pseudo']);
@@ -74,7 +74,7 @@ else {
 		die();
 	}
 	
-	if($_GET['flw']) {
+	if ($_GET['flw'] == "true") {
 		$requete = $db->prepare("DELETE FROM suitGroupe WHERE pseudo=:pseudo AND idg=:idg;");
 		$requete->bindParam(':pseudo', $_SESSION['pseudo']);
 		$requete->bindParam(':idg', $_GET['idg']);
@@ -87,7 +87,10 @@ else {
 		$requete->execute();
 	}
 }
-
-$location = htmlspecialchars($_GET['location']);
-header('Location: '.$location);
-
+if (!empty($_GET['location'])) {
+    $location = htmlspecialchars($_GET['location']);
+    header('Location: '.$location);
+}
+else {
+    header('Location: index.php');
+}

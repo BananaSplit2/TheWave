@@ -28,12 +28,12 @@ else {
     }
 
     $followersquery = $db->prepare("SELECT count(*) FROM suitutilisateur WHERE suivi = :pseudo");
-    $followersquery->bindParam(":pseudo", $_SESSION['pseudo']);
+    $followersquery->bindParam(":pseudo", $_GET['pseudo']);
     $followersquery->execute();
     $followers = $followersquery->fetchColumn();
 
     $followingquery = $db->prepare("SELECT count(*) FROM suitutilisateur WHERE suit = :pseudo");
-    $followingquery->bindParam(":pseudo", $_SESSION['pseudo']);
+    $followingquery->bindParam(":pseudo", $_GET['pseudo']);
     $followingquery->execute();
     $following = $followingquery->fetchColumn();
 }
@@ -49,7 +49,7 @@ else {
         <div class="col">
             <h4>Informations personnelles</h4>
             <table class="table table-sm table-striped">
-                <tr><th>Pseudo</th><td><?php echo $_SESSION['pseudo'] ?></td></tr>
+                <tr><th>Pseudo</th><td><?php echo $_GET['pseudo'] ?></td></tr>
                 <tr><th>Email</th><td><?php echo $utilisateur['email'] ?></td></tr>
                 <tr><th>Date d'inscription</th><td><?php echo $utilisateur['dateinsc'] ?></td></tr>
                 <tr><th>Nombre d'utilisateurs suivant</th><td><?php echo $followers ?></td></tr>
@@ -57,9 +57,21 @@ else {
             </table>
         </div>
     </div>
-    <div class="row">
+    <div class="row my-4">
         <div class="col">
+            <?php
+            $requete = $db->prepare("SELECT * FROM suitutilisateur WHERE suit = :pseudo AND suivi = :pseudo2");
+            $requete->bindParam(":pseudo", $_SESSION['pseudo']);
+            $requete->bindParam(":pseudo2", $_GET['pseudo']);
+            $requete->execute();
 
+            if ($requete->rowCount() > 0) {
+                echo '<a href="follow.php?pseudo=' . $_GET['pseudo'] .'&flw=true&location='. urlencode($_SERVER['REQUEST_URI']) .'" class="btn btn-primary btn-lg">Ne plus suivre</a>';
+            }
+            else {
+                echo '<a href="follow.php?pseudo=' . $_GET['pseudo'] .'&flw=false&location='. urlencode($_SERVER['REQUEST_URI']) .'" class="btn btn-primary btn-lg">Suivre</a>';
+            }
+            ?>
         </div>
     </div>
 </main>

@@ -4,9 +4,14 @@ session_regenerate_id();
 require("inc/checkauth.inc.php");
 require("inc/connexiondb.inc.php");
 
-if (!empty($_POST['titre']) && !empty($_POST['desc']) && !empty($_POST['prive'] && !empty($_POST['idp']))) {
+if (!empty($_POST['titre']) && !empty($_POST['prive'] && !empty($_POST['idp']))) {
     $titre = $_POST['titre'];
-    $desc = $_POST['desc'];
+    if (!empty($_POST['desc'])) {
+        $desc = $_POST['desc'];
+    }
+    else {
+        $desc = "";
+    }
     $idp = $_POST['idp'];
     if ($_POST['prive'] != "false") {
         $prive = "yes";
