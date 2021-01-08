@@ -29,13 +29,8 @@ require("inc/checkauth.inc.php");
 
             if ($artistequery->execute()) {
                 $recoartiste = $artistequery->fetchAll();
-            }
-            else {
-                $recoartiste = false;
-            }
-            ?>
-                <?php
-                if ($recoartiste == false || count($recoartiste) < 1) {
+
+                if (count($recoartiste) < 1) {
                     echo "<h4>Vous n'avez pas écouté de chansons récemment</h4>";
                 }
                 else {
@@ -48,7 +43,11 @@ require("inc/checkauth.inc.php");
 
                     echo '</table>';
                 }
-                ?>
+            }
+            else {
+                echo "<h4>Vous n'avez pas écouté de chansons récemment</h4>";
+            }
+            ?>
         </div>
         <div class="col-6">
             <h4>Playlists contenant plusieurs morceaux de votre historique</h4>
@@ -81,9 +80,92 @@ require("inc/checkauth.inc.php");
             </table>
         </div>
     </div>
+    <div class="row">
+        <div class="col-6">
+            <h4>Groupes suivis par les utilisateurs écoutant les mêmes morceaux que vous</h4>
+            <table class="table table-sm table-striped">
+            <?php
+            $recogroupes = $db->prepare("WITH aux AS (
+                                                SELECT pseudo, count(DISTINCT idmo) as num FROM historique
+                                                WHERE idmo IN (
+                                                    SELECT idmo FROM historique
+                                                    WHERE pseudo = :pseudo
+                                                    AND age(dateheure) <= interval '7 days'
+                                                    )
+                                                GROUP BY pseudo
+                                            )
+                                            SELECT idg, nomg FROM utilisateur
+                                                NATURAL JOIN aux
+                                                NATURAL JOIN suitgroupe
+                                                NATURAL JOIN groupe
+                                            WHERE pseudo <> :pseudo
+                                            AND num >= (
+                                                SELECT num/5 FROM aux WHERE pseudo = :pseudo
+                                                )
+                                            GROUP BY idg, nomg
+                                            ORDER BY count(*) DESC
+                                            LIMIT 10;");
+            $recogroupes->bindParam(':pseudo', $_SESSION['pseudo']);
+            $recogroupes->execute();
+
+            foreach ($recogroupes as $groupe) {
+                echo '<tr><td><a href="groupe.php?idg='. $groupe['idg'] .'">'. $groupe['nomg'] .'</a></td></tr>';
+            }
+            ?>
+            </table>
+        </div>
+        <div class="col-6">
+            <?php
+                $groupefavquery = $db->prepare("SELECT idg, nomg FROM historique
+                                                        NATURAL JOIN morceau
+                                                        NATURAL JOIN groupe
+                                                    WHERE pseudo = :pseudo
+                                                    GROUP BY idg, nomg
+                                                    ORDER BY count(*) DESC
+                                                    LIMIT 1;");
+                $groupefavquery->bindParam(":pseudo", $_SESSION['pseudo']);
+
+                if ($groupefavquery->execute() != FALSE) {
+                    if ($groupefavquery->rowCount() > 0) {
+                        $groupefavori = $groupefavquery->fetch();
+                        echo '<h4>Les abonnés qui suivent '. $groupefavori['nomg'] .' suivent aussi</h4>';
+
+                        $groupes = $db->prepare("SELECT g1.idg, nomg, count(*) as num FROM suitgroupe AS g1
+                                                        JOIN suitgroupe AS g2 ON g1.pseudo = g2.pseudo
+                                                        JOIN groupe ON g1.idg = groupe.idg
+                                                        WHERE g2.idg = :idg AND g1.idg <> :idg AND g1.pseudo <> :pseudo
+                                                        GROUP BY g1.idg, nomg
+                                                        ORDER BY num DESC
+                                                        LIMIT 10;");
+                        $groupes->bindParam(":pseudo", $_SESSION['pseudo']);
+                        $groupes->bindParam(":idg", $groupefavori['idg']);
+                        $groupes->execute();
+
+                        echo '<table class="table table-sm table-striped">';
+
+                        foreach ($groupes as $groupe) {
+                            echo '<tr><td><a href="groupe.php?idg='. $groupe['idg'] .'">'. $groupe['nomg'] .'</a></td></tr>';
+                        }
+
+                        echo '</table>';
+
+                    }
+
+                    else {
+                        echo "<h4>Vous n'avez pas écouté de chansons récemment</h4>";
+                    }
+                }
+                else {
+                    echo "<h4>Vous n'avez pas écouté de chansons récemment</h4>";
+                }
+
+
+
+            ?>
+        </div>
+    </div>
 </main>
 
 <?php
 require("inc/footer.inc.php");
 ?>
-
